@@ -1,0 +1,265 @@
+.container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chat-container{
+    width: 1400px;
+    height: 90vh;
+    border-radius: 7px;
+    /* box-shadow: 0px 0px 16px 0px #424558; */
+
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-areas: "left-container right-container";
+}
+.left-container{
+    grid-area: left-container;
+    border-right: 1px solid rgba(255, 255, 255, 0.11);
+    display: grid;
+    grid-template-rows: 10vh 15vh 55vh 10vh;
+    grid-template-areas: "my-profile"
+                         "menu-a"
+                         "friends"
+                         "menu-bottom";
+}
+.my-profile{
+    grid-area: my-profile;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.my-profile img{
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.my-profile ion-icon{
+    font-size: 1.3rem;
+}
+.profile{
+    display: flex;
+}
+.menu{
+    grid-area: menu-a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.item-menu{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-right: 20px;
+    padding: 10px 20px;
+}
+.item-menu:nth-child(1){
+    margin-bottom: 10px;
+}
+.item-menu ion-icon{
+    font-size: 1.5rem;
+    margin-right: 20px;
+}
+.item-menu:hover{
+    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+}
+.menu-bottom{
+    grid-area: menu-bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+.menu-bottom button{
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: initial;
+    transition: all 0.5s;
+    background-color: rgba(255, 255, 255, 0.062);
+    margin-right: 15px;
+    padding: 0px 5px;
+}
+.menu-bottom button ion-icon{
+    font-size: 1.7rem;
+}
+.menu-bottom .btn-logout ion-icon{
+    transform: rotate(180deg);
+}
+.menu-bottom .btn-logout:hover{
+    background-color: rgb(148, 0, 0);
+}
+.menu-bottom .btn-friends-solicitations:hover{
+    background-color: #7f5cb1;
+}
+.menu-bottom .btn-friends-solicitations{
+    position: relative;
+}
+.menu-bottom .quantity-solicitations{
+    background-color: red;
+    border-radius: 50px;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-bottom .quantity-solicitations p{
+    font-weight: 500;
+}
+.menu-bottom .btn-theme:hover{
+    background-color: #005dd6;
+}
+.right-container{
+    grid-area: right-container;
+}
+.right-container-content{
+    display: grid;
+    grid-template-rows: 10vh 15vh 55vh 10vh;
+    grid-template-areas: "header-friend-chat"
+                         "chat"
+                         "chat"
+                         "send-message";
+}
+.header-friend-chat{
+    grid-area: header-friend-chat;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.info-friend{
+    display: flex;
+}
+.info-friend img{
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.close{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.close ion-icon{
+    font-size: 1.7rem;
+}
+.close:hover{
+    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+}
+.chat{
+    grid-area: chat;
+    overflow-y: scroll;
+    
+    display: flex;
+    flex-direction: column;
+}
+.chat::-webkit-scrollbar{
+    width: 7px;
+}
+.chat::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.message{
+    width: fit-content;
+    margin: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+.message .content{
+    max-width: 300px;
+    width: fit-content;
+    word-break: break-all;
+    padding: 5px 10px;
+    background-color: #BD93F9;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.message .date{
+    font-size: .8rem;
+    color: #5d5f66;
+    /* background-color: #9ba8b3; */
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: 500;
+}
+.message.my{
+    align-self: flex-end;
+}
+.message.my .content{
+    background-color: #005dd6;
+    align-self: flex-end;
+}
+.message.my .date{
+    align-self: flex-end;
+}
+.message:last-child{
+    margin-bottom: 20px;
+}
+.send-message{
+    grid-area: send-message;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+.send-message input{
+    width: 90%;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50px;
+    border: none;
+    /* background-color: #202331; */
+    padding: 0px 20px;
+    outline: none;
+    font-size: 1.2rem;
+}
+.send-message input::placeholder{
+    font-weight: 400;
+    color: #999999;
+}
+.send-message button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    background-color: #BD93F9;
+    transition: background-color 0.5s;
+}
+.send-message button:hover{
+    background-color: #7a4eb8;
+}
+.send-message ion-icon{
+    transition: all 0.5s;
+}

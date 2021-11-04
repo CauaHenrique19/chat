@@ -1,0 +1,123 @@
+.add-friends{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:#282A36;
+}
+.add-friends-container{
+    width: 70%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #1c1d2c;
+    border-radius: 7px;
+}
+.add-friends-header{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    padding: 0 20px;
+}
+.btn-back{
+    display: flex;
+    align-items: center;
+}
+.btn-back ion-icon{
+    margin-right: 15px;
+    font-size: 1.5rem;
+    padding: 15px;
+}
+.btn-back ion-icon:hover{
+    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+    border-radius: 50px;
+}
+.btn-back p{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.add-friends .input-container{
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #202331;
+    padding: 0 0px 0 25px;
+}
+.add-friends .input-container input{
+    height: 50px;
+    width: 320px;
+    border: none;
+    outline: none;
+    background-color: initial;
+    font-size: 1.2rem;
+}
+.add-friends .input-container input::placeholder{
+    font-size: 1.1rem;
+}
+.add-friends .input-container button{
+    height: 50px;
+    width: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: initial;
+    border-radius: 50px;
+}
+.add-friends .input-container button:hover{
+    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+}
+.add-friends .input-container button > ion-icon{
+    color: #fafafa;
+    font-size: 1.5rem;
+}
+.add-friends-content{
+    height: 80vh;
+    overflow-y: auto;
+}
+.add-friends-content::-webkit-scrollbar{
+    width: 7px;
+}
+.add-friends-content::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.add-friends-content h1{
+    margin: 25px;
+}
+.peoples{
+    margin: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.people{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 0 15px 15px 0;
+}
+.people h1{
+    margin: 0;
+}
+.people img{
+    width: 75px;
+    height: 75px;
+    margin-bottom: 15px;
+    border-radius: 50px;
+}
+.people button{
+    background-color: initial;
+    border: 1px solid blueviolet;
+    padding: 5px 15px;
+    margin: 15px 0;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: none;
+}
+.people:hover{
+    background-color: rgba(255, 255, 255, 0.11);
+}

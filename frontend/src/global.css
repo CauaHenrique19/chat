@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    transition: all, 0.5s;
+    color: #fafafa;
+}
+a{
+    text-decoration: none;
+}
+.light{
+    background-color: white;
+}
+.light h1, 
+.light h2, 
+.light h3, 
+.light p, 
+.light ion-icon{
+    color: black;
+}
+.light input{
+    color: black;
+    background-color: #f3f3f3;
+}
+.light-secondary{
+    background-color: #fafafa;
+}
+.light-terciary{
+    background-color: #f3f3f3;
+}
+
+.dark{
+    background-color: #282A36;
+}
+.dark h1, 
+.dark h2, 
+.dark h3, 
+.dark p, 
+.dark ion-icon{
+    color: #fafafa;
+}
+.dark input{
+    background-color: #202331;
+    color: #fafafa;
+}
+.dark-secondary{
+    background-color: #1c1d2c;
+}
+.dark-terciary{
+    background-color: #202331;
+}

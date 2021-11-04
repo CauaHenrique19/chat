@@ -1,0 +1,99 @@
+.solicitations-list{
+    overflow-y: auto;
+}
+.solicitations-list::-webkit-scrollbar{
+    width: 7px;
+}
+.solicitations-list::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.header-solicitations{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-solicitations h1{
+    margin: 10px 20px;
+}
+.header-solicitations button{
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1.8rem;
+    border-radius: 50px;
+    background-color: initial;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    outline: none;
+}
+.header-solicitations button:hover{
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.solicitation{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    border-bottom: 1px solid rgba(163, 163, 163, 0.11);
+    cursor: pointer;
+}
+.solicitation .user-info{
+    display: flex; 
+}
+.solicitation img{
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.solicitation .buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.solicitation .buttons-container button{
+    background-color: initial;
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    outline: none;
+}
+.solicitation .buttons-container button > ion-icon{
+    font-size: 1.3rem;
+}
+.solicitation .buttons-container .btn-accept{
+    margin-right: 10px;
+    border: 1px solid green;
+}
+.solicitation .buttons-container .btn-accept:hover{
+    background-color: rgba(0, 128, 0, 0.212);
+}
+.solicitation .buttons-container .btn-accept > ion-icon{
+    color: green;
+}
+.solicitation .buttons-container .btn-recuse{
+    border: 1px solid red;
+}
+.solicitation .buttons-container .btn-recuse:hover{
+    background-color: rgba(255, 0, 0, 0.212);
+}
+.solicitation .buttons-container .btn-recuse > ion-icon{
+    color: red;
+}
+.solicitation:hover{
+    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+}
+.solicitation:last-child{
+    border: none;
+    border-bottom-left-radius: 7px;
+}

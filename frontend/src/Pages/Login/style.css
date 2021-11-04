@@ -1,0 +1,90 @@
+.login{
+    display: flex;
+    height: 100vh;
+    background-color:#282A36;
+}
+.login-container{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 70px;
+}
+.header-login h1{
+    font-size: 3rem;
+}
+.header-login p{
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+.image-container{
+    width: 60%;
+}
+.image-container img{
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+.form-login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+.form-login .input-group{
+    display: flex;
+    flex-direction: column;
+}
+.form-login label{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+.form-login input{
+    width: 400px;
+    height: 50px;
+    outline: none;
+    margin-bottom: 30px;
+    border: none;
+    background-color: #202331;
+    padding: 0px 15px;
+    font-size: 1.5rem;
+    transition: border-left 0.2s, box-shadow 0.2s;
+    border-radius: 3px;
+}
+.form-login input::placeholder{
+    color: rgba(219, 219, 219, 0.178);
+}
+.form-login input:focus{
+    border-left: 3px solid #BD93F9;
+    box-shadow: 0px 0px 30px 0px #bd93f944;
+    border: 2px solid #BD93F9;
+}
+.form-login button{
+    width: 400px;
+    height: 50px;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #BD93F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.form-login button > ion-icon{
+    margin-left: 15px;
+    font-size: 1.7rem;
+}
+.form-login button:hover{
+    box-shadow: 0px 0px 30px 0px #bd93f944;
+    background-color: #b37dff;
+}
+.form-login a{
+    font-size: 0.9rem;
+    /* color: #BD93F9; */
+    margin-top: 5px;
+    text-decoration: none;
+}
