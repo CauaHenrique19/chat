@@ -5,6 +5,7 @@ export class Friendship{
     public readonly id?: string
     public requester_id: string
     public receiver_id: string
+    public created_at: Date
     public status: FriendshipEnum
 
     constructor(props: Omit<Friendship, 'id'>, id?: string){

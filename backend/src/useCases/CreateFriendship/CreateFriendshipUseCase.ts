@@ -10,6 +10,7 @@ export class CreateFriendshipUseCase{
         const friendshipEntity = new Friendship({ 
             receiver_id: friendship.receiver_id,
             requester_id: friendship.requester_id,
+            created_at: new Date(),
             status: FriendshipEnum.pending
         })
 

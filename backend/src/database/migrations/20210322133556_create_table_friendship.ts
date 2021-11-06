@@ -5,6 +5,7 @@ export async function up(knex: Knex) : Promise<void> {
     table.string('id').primary().notNullable()
     table.string('requester_id').references('id').inTable('users').notNullable()
     table.string('receiver_id').references('id').inTable('users').notNullable()
+    table.timestamp('created_at').notNullable()
     table.string('status')
   })
 };

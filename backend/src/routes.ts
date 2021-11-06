@@ -11,8 +11,6 @@ import { acceptFriendshipController } from "./useCases/AcceptFriendship"
 import { createFriendshipController } from "./useCases/CreateFriendship"
 import { getFriendsController } from "./useCases/GetFriends"
 
-const FriendshipController = require('./Controllers/FriendshipController')
-
 router.post('/signup', upload.single('file'), (req, res) => signupController.handle(req, res))
 router.post('/login', (req, res) => loginController.handle(req, res))
 router.get('/users/search', (req, res) => searchUsersController.handle(req, res))
