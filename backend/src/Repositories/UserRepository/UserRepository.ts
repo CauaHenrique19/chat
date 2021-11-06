@@ -1,0 +1,20 @@
+import { User } from "../../Entities/User";
+import { IUserRepository } from "./IUserRepository";
+import knex from '../../database/connection'
+
+export class UserRepository implements IUserRepository{
+    async save (user : User) : Promise<User> {
+        const [userDb] = await knex('users')
+            .insert(user, '*')
+        
+        return userDb
+    }
+    async search(value: string) : Promise<User[]> {
+        const usersSearch = await knex('users')
+            .select('id', 'name', 'email', 'key_image', 'url_image')
+            .where('name', 'like', `%${value}%`)
+            .orWhere('email', 'like', `%${value}%`)
+
+        return usersSearch
+    }
+}
