@@ -1,9 +1,9 @@
 import { app } from './app'
 import http from 'http'
-import { io } from './socket'
+import { startIo } from './socket'
 
 const server = http.createServer(app)
+server.listen(3001, () => console.log('[BACKEND] Rodando...'))
+startIo()
 
-io.listen(3001)
-console.log('[BACKEND] Rodando...')
 export { server }

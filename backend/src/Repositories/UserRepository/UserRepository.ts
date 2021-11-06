@@ -9,6 +9,7 @@ export class UserRepository implements IUserRepository{
         
         return userDb
     }
+
     async search(value: string) : Promise<User[]> {
         const usersSearch = await knex('users')
             .select('id', 'name', 'email', 'key_image', 'url_image')
@@ -16,5 +17,14 @@ export class UserRepository implements IUserRepository{
             .orWhere('email', 'like', `%${value}%`)
 
         return usersSearch
+    }
+
+    async findByEmail(email: string) : Promise<User>{
+        const user = await knex('users')
+            .select('*')
+            .where({ email })
+            .first()
+
+        return user
     }
 }
