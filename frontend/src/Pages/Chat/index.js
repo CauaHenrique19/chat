@@ -30,18 +30,16 @@ const Chat = () => {
 
     useEffect(() => {
         if (friends.length === 0) getFriends()
-    }, [])
-
-    useEffect(() => {
 
         io.on('connect', () => {
             io.emit('receive_data', user)
         })
-
+    
         io.on('message', (data) => {
             console.log(data)
         })
 
+        console.log('aqui')
     }, [])
 
     useEffect(() => {
@@ -71,7 +69,7 @@ const Chat = () => {
     }
 
     return (
-        <div className="chat-container">
+        <div className={darkTheme ? "chat-container dark" : "chat-container light"}>
             <aside className="sidebar">
                 <div className="header-sidebar"></div>
                 <ul>
@@ -239,7 +237,7 @@ const Chat = () => {
                         friends &&
                         friends.length > 0 ?
                         friends.map(friend => (
-                            <div className="friend" onClick={() => setUseSelected(friend)}>
+                            <div key={friend.id} className="friend" onClick={() => setUseSelected(friend)}>
                                 <img key={friend.id} src={friend.url_image} alt="user" />
                                 <div className="info-friend">
                                     <h3 className="friend-name">{friend.name}</h3>

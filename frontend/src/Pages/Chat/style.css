@@ -12,7 +12,7 @@
 }
 .chat-container .sidebar .header-sidebar{
     height: 100px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-bottom: 1px solid var(--border-color);
 }
 .chat-container .sidebar ul{
     height: calc(100% - 100px);
@@ -33,15 +33,15 @@
     transition: background-color 0.3s;
 }
 .chat-container .sidebar li.selected{
-    background-color: #964bff;
+    background-color: var(--primary-color);
 }
 .chat-container .sidebar li:hover{
-    background-color: #964bff;
+    background-color: var(--primary-color);
 }
 .chat-container .last-messages-container{
     width: 350px;
     height: 100%;
-    border-right: 1px solid rgba(255, 255, 255, 0.11);
+    border-right: 1px solid var(--border-color);
 }
 .chat-container .last-messages-container .header-last-messages-container{
     height: 100px;
@@ -49,14 +49,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-bottom: 1px solid var(--border-color);
 }
 .chat-container .last-messages-container .header-last-messages-container .input-container{
     width: 90%;
     display: flex;
     align-items: center;
     border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.281);
+    background-color: var(--primary-hover-color);
     padding: 0 25px;
 }
 .chat-container .last-messages-container .header-last-messages-container .input-container input{
@@ -69,10 +69,10 @@
 }
 .chat-container .last-messages-container .header-last-messages-container .input-container input::placeholder{
     font-size: 1.1rem;
-    color: #fafafa;
+    color: var(--primary-font-color);
 }
 .chat-container .last-messages-container .header-last-messages-container .input-container ion-icon{
-    color: #fafafa;
+    color: var(--primary-font-color);
     font-size: 1.5rem;
 }
 .chat-container .last-messages-container .header-last-messages-content{
@@ -91,11 +91,11 @@
 }
 .chat-container .last-messages-container .last-messages-content::-webkit-scrollbar{
     width: 7px;
-    background-color: rgba(136, 136, 136, 0.178);
+    background-color: var(--primary-hover-color);
 }
 .chat-container .last-messages-container .last-messages-content::-webkit-scrollbar-thumb{
     width: 7px;
-    background-color: #964bff;
+    background-color: var(--primary-color);
     border-radius: 50px;
 }
 .chat-container .last-messages-container .last-messages-content .friend{
@@ -104,11 +104,11 @@
     width: 100%;
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-bottom: 1px solid var(--border-color);
     transition: background-color 0.3s;
 }
 .chat-container .last-messages-container .last-messages-content .friend:hover{
-    background-color: rgba(136, 136, 136, 0.178);
+    background-color: var(--primary-hover-color);
 }
 .chat-container .last-messages-container .last-messages-content .friend img{
     margin-right: 15px;
@@ -144,7 +144,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: #964bff;
+    background-color: var(--primary-color);
     border-radius: 50px;
 }
 .chat-container .chat-content{
@@ -159,7 +159,7 @@
     justify-content: space-between;
 
     padding: 0 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-bottom: 1px solid var(--border-color);
 }
 .chat-container .chat-content .header-chat-content .user-selected-info{
     display: flex;
@@ -181,14 +181,14 @@
     font-size: 1.3rem;
     border: none;
     outline: none;
-    background-color: rgba(255, 255, 255, 0.11);
+    background-color: var(--border-color);
     cursor: pointer;
     border-radius: 50px;
     margin-right: 10px;
     transition: background-color 0.3s;
 }
 .chat-container .chat-content .header-chat-content .buttons-container button:hover{
-    background-color: #964bff;
+    background-color: var(--primary-color);
 }
 .chat-container .chat-content .header-chat-content .buttons-container button:last-child{
     margin: 0;
@@ -201,11 +201,11 @@
 }
 .chat-container .chat-content .chat-messages::-webkit-scrollbar{
     width: 7px;
-    background-color: rgba(136, 136, 136, 0.178);
+    background-color: var(--primary-hover-color);
 }
 .chat-container .chat-content .chat-messages::-webkit-scrollbar-thumb{
     width: 7px;
-    background-color: #964bff;
+    background-color: var(--primary-color);
     border-radius: 50px;
 }
 .chat-container .chat-content .chat-messages .message{
@@ -220,10 +220,8 @@
     height: fit-content;
     word-break: break-all;
     padding: 15px;
-    background-color: #BD93F9;
+    background-color: var(--primary-color);
     border-radius: 25px;
-    /* border-bottom-left-radius: 0; */
-    /* margin-bottom: 5px; */
 }
 .chat-container .chat-content .chat-messages .message .date{
     font-size: .8rem;
@@ -233,7 +231,7 @@
     align-self: flex-end;
 }
 .chat-container .chat-content .chat-messages .message.my .content{
-    background-color: #005dd6;
+    background-color: var(--secondary-color);
     align-self: flex-end;
 }
 .chat-container .chat-content .chat-messages .message.my .date{
@@ -259,7 +257,7 @@
     justify-content: center;
     padding: 0px 20px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.11);
+    border-top: 1px solid var(--border-color);
 }
 .chat-container .chat-content .send-message .input-container{
     width: 100%;
@@ -269,7 +267,6 @@
     align-items: center;
 
     border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.281);
     padding-right: 20px;
 }
 .chat-container .chat-content .send-message input{
@@ -281,7 +278,7 @@
     outline: none;
     padding: 0px 20px;
     font-size: 1.5rem;
-    color: #fafafa;
+    color: var(--primary-font-color);
 }
 .chat-container .chat-content .send-message button{
     width: 50px;
@@ -296,11 +293,11 @@
     font-size: 1.3rem;
     border-radius: 50px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.11);
+    background-color: var(--border-color);
     transition: background-color 0.3s;
 }
 .chat-container .chat-content .send-message button:hover{
-    background-color: #964bff;
+    background-color: var(--primary-color);
 }
 .chat-container .chat-content .send-message button:last-child{
     margin-right: 0;
@@ -321,7 +318,7 @@
 .chat-container .my-friends{
     width: 300px;
     height: 100%;
-    border-left: 1px solid rgba(255, 255, 255, 0.11);
+    border-left: 1px solid var(--border-color);
 }
 .chat-container .my-friends .header-my-friends{
     height: 100px;
@@ -329,14 +326,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-bottom: 1px solid var(--border-color);
 }
 .chat-container .my-friends .header-my-friends .input-container{
     width: 90%;
     display: flex;
     align-items: center;
     border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.281);
+    background-color: var(--primary-hover-color);
     padding: 0 25px;
 }
 .chat-container .my-friends .header-my-friends .input-container input{
@@ -349,10 +346,10 @@
 }
 .chat-container .my-friends .header-my-friends .input-container input::placeholder{
     font-size: 1.1rem;
-    color: #fafafa;
+    color: var(--primary-font-color);
 }
 .chat-container .my-friends .header-my-friends .input-container ion-icon{
-    color: #fafafa;
+    color: var(--primary-font-color);
     font-size: 1.5rem;
 }
 .chat-container .my-friends .header-friends-content{
@@ -374,7 +371,7 @@
     transition: background-color 0.3s;
 }
 .chat-container .my-friends .friends-content .friend:hover{
-    background-color: rgba(136, 136, 136, 0.178);
+    background-color: var(--primary-hover-color);
 }
 .chat-container .my-friends .friends-content .friend img{
     margin-right: 15px;
@@ -389,7 +386,7 @@
 .chat-container .my-friends .menu-my-friends{
     height: 100px;
     display: flex;
-    border-top: 1px solid rgba(255, 255, 255, 0.11);
+    border-top: 1px solid var(--border-color);
 }
 .chat-container .my-friends .menu-my-friends button{
     width: 50%;
@@ -401,10 +398,10 @@
     cursor: pointer;
 }
 .chat-container .my-friends .menu-my-friends button.selected{
-    border-top: 4px solid #964bff;
-    background-color: rgba(255, 255, 255, 0.11);
+    border-top: 4px solid var(--primary-color);
+    background-color: var(--border-color);
 }
 .chat-container .my-friends .menu-my-friends button:hover{
-    border-top: 4px solid #964bff;
-    background-color: rgba(255, 255, 255, 0.11);
+    border-top: 4px solid var(--primary-color);
+    background-color: var(--border-color);
 }
