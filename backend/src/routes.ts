@@ -1,13 +1,16 @@
 import { Router } from "express"
+import multer from 'multer'
 
 const router = Router()
+const upload = multer()
 
 import { loginController } from "./useCases/Login"
+import { signupController } from "./useCases/Signup"
 
 const UsersControllers = require('./Controllers/UsersController')
 const FriendshipController = require('./Controllers/FriendshipController')
 
-// router.post('/signup', UsersControllers.create)
+router.post('/signup', upload.single('file'), (req, res) => signupController.handle(req, res))
 router.post('/login', (req, res) => loginController.handle(req, res))
 // router.get('/users/search', UsersControllers.search)
 

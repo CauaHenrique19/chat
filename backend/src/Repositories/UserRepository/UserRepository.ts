@@ -5,7 +5,7 @@ import knex from '../../database/connection'
 export class UserRepository implements IUserRepository{
     async save (user : User) : Promise<User> {
         const [userDb] = await knex('users')
-            .insert(user, '*')
+            .insert(user, ['id', 'name', 'email', 'key_image', 'url_image'])
         
         return userDb
     }
