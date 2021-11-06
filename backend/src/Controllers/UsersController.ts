@@ -78,4 +78,4 @@ class UsersControllers{
     }
 }
 
-module.exports = UsersControllers
+export { UsersControllers }

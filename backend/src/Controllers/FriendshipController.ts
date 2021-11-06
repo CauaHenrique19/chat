@@ -1,4 +1,4 @@
-const knex = require('../database/connection')
+import knex from "../database/connection"
 
 class FriendshipController{
     static create(req, res){
@@ -61,4 +61,4 @@ class FriendshipController{
     }
 }
 
-module.exports = FriendshipController
+export { FriendshipController }
