@@ -1,6 +1,5 @@
 import { Router } from "express"
 import multer from 'multer'
-import { createFriendshipController } from "./useCases/CreateFriendship"
 
 const router = Router()
 const upload = multer()
@@ -8,6 +7,8 @@ const upload = multer()
 import { loginController } from "./useCases/Login"
 import { searchUsersController } from "./useCases/SearchUsers"
 import { signupController } from "./useCases/Signup"
+import { acceptFriendshipController } from "./useCases/AcceptFriendship"
+import { createFriendshipController } from "./useCases/CreateFriendship"
 
 const FriendshipController = require('./Controllers/FriendshipController')
 
@@ -16,7 +17,7 @@ router.post('/login', (req, res) => loginController.handle(req, res))
 router.get('/users/search', (req, res) => searchUsersController.handle(req, res))
 
 router.post('/friendship', (req, res) => createFriendshipController.handle(req, res))
-// router.put('/friendship/accept/:id', FriendshipController.update)
+router.put('/friendship', (req, res) => acceptFriendshipController.handle(req, res))
 // router.get('/friendship/friends/:userId', FriendshipController.getFriends)
 
 export { router }
