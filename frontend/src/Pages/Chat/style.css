@@ -1,265 +1,410 @@
-.container{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .chat-container{
-    width: 1400px;
-    height: 90vh;
-    border-radius: 7px;
-    /* box-shadow: 0px 0px 16px 0px #424558; */
+    width: 100vw;
+    height: 100vh;
 
-    display: grid;
-    grid-template-columns: 25% 75%;
-    grid-template-areas: "left-container right-container";
-}
-.left-container{
-    grid-area: left-container;
-    border-right: 1px solid rgba(255, 255, 255, 0.11);
-    display: grid;
-    grid-template-rows: 10vh 15vh 55vh 10vh;
-    grid-template-areas: "my-profile"
-                         "menu-a"
-                         "friends"
-                         "menu-bottom";
-}
-.my-profile{
-    grid-area: my-profile;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+}
+.chat-container .sidebar{
+    width: 100px;
+    height: 100%;
+
+    background-color: black;
+}
+.chat-container .sidebar .header-sidebar{
+    height: 100px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
-.my-profile img{
-    margin-right: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-}
-.my-profile ion-icon{
-    font-size: 1.3rem;
-}
-.profile{
-    display: flex;
-}
-.menu{
-    grid-area: menu-a;
+.chat-container .sidebar ul{
+    height: calc(100% - 100px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
-}
-.item-menu{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border-bottom-right-radius: 50px;
-    border-top-right-radius: 50px;
-    margin-right: 20px;
-    padding: 10px 20px;
-}
-.item-menu:nth-child(1){
-    margin-bottom: 10px;
-}
-.item-menu ion-icon{
-    font-size: 1.5rem;
-    margin-right: 20px;
-}
-.item-menu:hover{
-    background: linear-gradient(to left, #bd93f91e, #bd93f900);
-}
-.menu-bottom{
-    grid-area: menu-bottom;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.11);
-}
-.menu-bottom button{
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 3px;
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background-color: initial;
-    transition: all 0.5s;
-    background-color: rgba(255, 255, 255, 0.062);
-    margin-right: 15px;
-    padding: 0px 5px;
-}
-.menu-bottom button ion-icon{
-    font-size: 1.7rem;
-}
-.menu-bottom .btn-logout ion-icon{
-    transform: rotate(180deg);
-}
-.menu-bottom .btn-logout:hover{
-    background-color: rgb(148, 0, 0);
-}
-.menu-bottom .btn-friends-solicitations:hover{
-    background-color: #7f5cb1;
-}
-.menu-bottom .btn-friends-solicitations{
-    position: relative;
-}
-.menu-bottom .quantity-solicitations{
-    background-color: red;
-    border-radius: 50px;
-    position: absolute;
-    right: -5px;
-    top: -5px;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menu-bottom .quantity-solicitations p{
-    font-weight: 500;
-}
-.menu-bottom .btn-theme:hover{
-    background-color: #005dd6;
-}
-.right-container{
-    grid-area: right-container;
-}
-.right-container-content{
-    display: grid;
-    grid-template-rows: 10vh 15vh 55vh 10vh;
-    grid-template-areas: "header-friend-chat"
-                         "chat"
-                         "chat"
-                         "send-message";
-}
-.header-friend-chat{
-    grid-area: header-friend-chat;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
-.info-friend{
-    display: flex;
-}
-.info-friend img{
-    margin-right: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-}
-.close{
+.chat-container .sidebar li{
+    width: 100%;
+    height: 100px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50px;
-    width: 50px;
-    height: 50px;
+
+    font-size: 1.5rem;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
-.close ion-icon{
-    font-size: 1.7rem;
+.chat-container .sidebar li.selected{
+    background-color: #964bff;
 }
-.close:hover{
-    background: linear-gradient(to left, #bd93f91e, #bd93f900);
+.chat-container .sidebar li:hover{
+    background-color: #964bff;
 }
-.chat{
-    grid-area: chat;
-    overflow-y: scroll;
+.chat-container .last-messages-container{
+    width: 350px;
+    height: 100%;
+    border-right: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .last-messages-container .header-last-messages-container{
+    height: 100px;
     
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .last-messages-container .header-last-messages-container .input-container{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.281);
+    padding: 0 25px;
+}
+.chat-container .last-messages-container .header-last-messages-container .input-container input{
+    height: 50px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: initial;
+    font-size: 1.2rem;
+}
+.chat-container .last-messages-container .header-last-messages-container .input-container input::placeholder{
+    font-size: 1.1rem;
+    color: #fafafa;
+}
+.chat-container .last-messages-container .header-last-messages-container .input-container ion-icon{
+    color: #fafafa;
+    font-size: 1.5rem;
+}
+.chat-container .last-messages-container .header-last-messages-content{
+    height: 50px;
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+}
+.chat-container .last-messages-container .last-messages-content{
+    display: flex;
     flex-direction: column;
+
+    height: calc(100% - 150px);
+
+    overflow-y: auto;
 }
-.chat::-webkit-scrollbar{
-    width: 7px;
-}
-.chat::-webkit-scrollbar-thumb{
+.chat-container .last-messages-container .last-messages-content::-webkit-scrollbar{
     width: 7px;
     background-color: rgba(136, 136, 136, 0.178);
 }
-.message{
-    width: fit-content;
-    margin: 20px 20px 0 20px;
+.chat-container .last-messages-container .last-messages-content::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: #964bff;
+    border-radius: 50px;
+}
+.chat-container .last-messages-container .last-messages-content .friend{
     display: flex;
-    flex-direction: column;
+
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    transition: background-color 0.3s;
 }
-.message .content{
-    max-width: 300px;
-    width: fit-content;
-    word-break: break-all;
-    padding: 5px 10px;
-    background-color: #BD93F9;
-    border-radius: 5px;
-    margin-bottom: 5px;
+.chat-container .last-messages-container .last-messages-content .friend:hover{
+    background-color: rgba(136, 136, 136, 0.178);
 }
-.message .date{
-    font-size: .8rem;
-    color: #5d5f66;
-    /* background-color: #9ba8b3; */
-    width: fit-content;
-    padding: 2px 5px;
-    border-radius: 2px;
-    font-weight: 500;
+.chat-container .last-messages-container .last-messages-content .friend img{
+    margin-right: 15px;
 }
-.message.my{
-    align-self: flex-end;
-}
-.message.my .content{
-    background-color: #005dd6;
-    align-self: flex-end;
-}
-.message.my .date{
-    align-self: flex-end;
-}
-.message:last-child{
-    margin-bottom: 20px;
-}
-.send-message{
-    grid-area: send-message;
+.chat-container .last-messages-container .last-messages-content .friend .header-friend{
+    width: 100%;
     display: flex;
     align-items: center;
-    padding: 0px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.11);
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
-.send-message input{
-    width: 90%;
-    height: 50px;
-    margin-right: 15px;
-    border-radius: 50px;
-    border: none;
-    /* background-color: #202331; */
-    padding: 0px 20px;
-    outline: none;
-    font-size: 1.2rem;
+.chat-container .last-messages-container .last-messages-content .friend .header-friend .last-message{
+    color: rgba(136, 136, 136, 0.808);
 }
-.send-message input::placeholder{
-    font-weight: 400;
-    color: #999999;
+.chat-container .last-messages-container .last-messages-content .friend .content-friend{
+    display: flex;
+    align-items: center;
 }
-.send-message button{
+.chat-container .last-messages-container .last-messages-content .friend .message-preview{
+    width: 85%;
+    margin-right: 10px;
+    color: rgb(209, 209, 209);
+}
+.chat-container .last-messages-container .last-messages-content .friend .message-preview ion-icon{
+    font-size: 1.3rem;
+    margin-right: 5px;
+}
+.chat-container .last-messages-container .last-messages-content .friend .count-messages{
+    width: 20px;
+    height: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    outline: none;
-    cursor: pointer;
+
+    background-color: #964bff;
+    border-radius: 50px;
+}
+.chat-container .chat-content{
+    width: calc(100% - 750px);
+    height: 100%;
+}
+.chat-container .chat-content .header-chat-content{
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .chat-content .header-chat-content .user-selected-info{
+    display: flex;
+}
+.chat-container .chat-content .header-chat-content .user-selected-info img{
+    margin-right: 15px;
+}
+.chat-container .chat-content .header-chat-content .buttons-container{
+    display: flex;
+}
+.chat-container .chat-content .header-chat-content .buttons-container button{
     width: 50px;
     height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.3rem;
     border: none;
-    font-size: 1.2rem;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.11);
+    cursor: pointer;
     border-radius: 50px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.chat-container .chat-content .header-chat-content .buttons-container button:hover{
+    background-color: #964bff;
+}
+.chat-container .chat-content .header-chat-content .buttons-container button:last-child{
+    margin: 0;
+}
+.chat-container .chat-content .chat-messages{
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 200px);
+    overflow-y: auto;
+}
+.chat-container .chat-content .chat-messages::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.chat-container .chat-content .chat-messages::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: #964bff;
+    border-radius: 50px;
+}
+.chat-container .chat-content .chat-messages .message{
+    width: fit-content;
+    margin: 5px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+.chat-container .chat-content .chat-messages .message .content{
+    max-width: 300px;
+    width: fit-content;
+    height: fit-content;
+    word-break: break-all;
+    padding: 15px;
     background-color: #BD93F9;
-    transition: background-color 0.5s;
+    border-radius: 25px;
+    /* border-bottom-left-radius: 0; */
+    /* margin-bottom: 5px; */
 }
-.send-message button:hover{
-    background-color: #7a4eb8;
+.chat-container .chat-content .chat-messages .message .date{
+    font-size: .8rem;
+    color: #5d5f66;
 }
-.send-message ion-icon{
-    transition: all 0.5s;
+.chat-container .chat-content .chat-messages .message.my{
+    align-self: flex-end;
+}
+.chat-container .chat-content .chat-messages .message.my .content{
+    background-color: #005dd6;
+    align-self: flex-end;
+}
+.chat-container .chat-content .chat-messages .message.my .date{
+    align-self: flex-end;
+}
+.chat-container .chat-content .chat-messages .message.last .content{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 25px;
+}
+.chat-container .chat-content .chat-messages .message.my.last .content{
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 0;
+}
+.chat-container .chat-content .chat-messages .message:last-child{
+    margin-bottom: 20px;
+}
+.chat-container .chat-content .send-message{
+    height: 100px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .chat-content .send-message .input-container{
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.281);
+    padding-right: 20px;
+}
+.chat-container .chat-content .send-message input{
+    width: calc(100% - 110px);
+    height: 100%;
+
+    background-color: initial;
+    border: none;
+    outline: none;
+    padding: 0px 20px;
+    font-size: 1.5rem;
+    color: #fafafa;
+}
+.chat-container .chat-content .send-message button{
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.11);
+    transition: background-color 0.3s;
+}
+.chat-container .chat-content .send-message button:hover{
+    background-color: #964bff;
+}
+.chat-container .chat-content .send-message button:last-child{
+    margin-right: 0;
+}
+.chat-container .start-chat-container{
+    width: calc(100% - 750px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.chat-container .start-chat-container img{
+    width: 30%;
+    height: 30%;
+    margin-bottom: 20px;
+}
+.chat-container .my-friends{
+    width: 300px;
+    height: 100%;
+    border-left: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .my-friends .header-my-friends{
+    height: 100px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .my-friends .header-my-friends .input-container{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.281);
+    padding: 0 25px;
+}
+.chat-container .my-friends .header-my-friends .input-container input{
+    height: 50px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: initial;
+    font-size: 1.2rem;
+}
+.chat-container .my-friends .header-my-friends .input-container input::placeholder{
+    font-size: 1.1rem;
+    color: #fafafa;
+}
+.chat-container .my-friends .header-my-friends .input-container ion-icon{
+    color: #fafafa;
+    font-size: 1.5rem;
+}
+.chat-container .my-friends .header-friends-content{
+    height: 50px;
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+}
+.chat-container .my-friends .friends-content{
+    height: calc(100% - 250px);
+}
+.chat-container .my-friends .friends-content .friend{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.chat-container .my-friends .friends-content .friend:hover{
+    background-color: rgba(136, 136, 136, 0.178);
+}
+.chat-container .my-friends .friends-content .friend img{
+    margin-right: 15px;
+}
+.chat-container .my-friends .friends-content .friend .header-friend{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.chat-container .my-friends .menu-my-friends{
+    height: 100px;
+    display: flex;
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+.chat-container .my-friends .menu-my-friends button{
+    width: 50%;
+    height: 100%;
+
+    border: none;
+    background-color: initial;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.chat-container .my-friends .menu-my-friends button.selected{
+    border-top: 4px solid #964bff;
+    background-color: rgba(255, 255, 255, 0.11);
+}
+.chat-container .my-friends .menu-my-friends button:hover{
+    border-top: 4px solid #964bff;
+    background-color: rgba(255, 255, 255, 0.11);
 }

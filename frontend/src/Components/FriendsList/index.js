@@ -1,13 +1,22 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../context/context'
 
-import ImageUser from '../../assets/default-user-image.png'
 import './style.css'
+import api from '../../services/api'
 
 const FriendsList = () => {
 
-    const { friends, setUserSelected, setViewingChat } = useContext(Context)
+    const { user, friends, setFriends } = useContext(Context)
     const [viewingInputSearchFriends, setViewingInputSearchFriends] = useState(false)
+
+    async function getFriends(){
+        const result = await api.get(`http://localhost:3001/friendship/friends/${user.id}`)
+        setFriends(result.data)
+    }
+    
+    useEffect(() => {
+        if(friends.length === 0) getFriends()
+    }, [])
 
     return (
         <div className="friends">
@@ -31,10 +40,10 @@ const FriendsList = () => {
                             setViewingChat(true)
                         }
                         }>
-                        <img src={ImageUser} alt="user" />
+                        <img src={friend.url_image} alt="user" />
                         <div>
-                            <h2>{friend.friend_name}</h2>
-                            <p>{friend.friend_email}</p>
+                            <h2>{friend.name}</h2>
+                            <p>{friend.email}</p>
                         </div>
                     </div>
                 ))
