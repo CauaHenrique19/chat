@@ -15,6 +15,25 @@ const Chat = () => {
 
     const { user, darkTheme, setDarkTheme, userSelected, viewingChat, setViewingChat, viewingSolicitations, setViewingSolicitations } = useContext(Context)
     const [message, setMessage] = useState('')
+    const io = socket('http://localhost:3001')
+
+    useEffect(() => {
+
+        io.on('connect', () => {
+            io.emit('receive_data', user)
+        })
+    
+        io.on('message', (data) => {
+            console.log(data)
+        })
+
+    }, [])
+    
+    useEffect(() => {
+        const chat = document.querySelector('.chat')
+        if(chat)
+        chat.scrollTop = chat.scrollHeight
+    }, [viewingChat])
 
     function handleLogout() {
         localStorage.removeItem('chat_user')
@@ -23,8 +42,6 @@ const Chat = () => {
     }
 
     function handleMessage() {
-        console.log(userSelected)
-
         const messageObj = {
             socket_id: userSelected.friend_socket_id,
             from: user.id,
@@ -32,6 +49,8 @@ const Chat = () => {
             message
         }
 
+        //console.log(io)
+        io.emit('received_message', messageObj)
         console.log(messageObj)
     }
 
@@ -39,17 +58,6 @@ const Chat = () => {
         setDarkTheme(!darkTheme)
     }
 
-    useEffect(() => {
-        const chat = document.querySelector('.chat')
-        if(chat)
-            chat.scrollTop = chat.scrollHeight
-
-        const io = socket('http://localhost:3001')
-
-        io.on('connect', () => {
-            io.emit('receive_data', user)
-        })
-    }, [viewingChat])
 
     return (
         <div className={`container ${darkTheme === false ? 'light' : 'dark'}`}>
