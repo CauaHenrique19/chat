@@ -13,6 +13,7 @@ import { getFriendsController } from "./useCases/GetFriends"
 import { createMessageController } from "./useCases/CreateMessage"
 import { getLastConversationsController } from "./useCases/GetLastConversations"
 import { getMessagesOfConversationsController } from "./useCases/GetMessagesOfConversations"
+import { readMessageController } from "./useCases/ReadMessage"
 
 router.post('/signup', upload.single('file'), (req, res) => signupController.handle(req, res))
 router.post('/login', (req, res) => loginController.handle(req, res))
@@ -24,6 +25,7 @@ router.get('/friendship/friends/:userId', (req, res) => getFriendsController.han
 
 router.get('/messages/:from/:to', (req, res) => getMessagesOfConversationsController.handle(req, res))
 router.post('/message', (req, res) => createMessageController.handle(req, res))
+router.put('/messages', (req, res) => readMessageController.handle(req, res))
 
 router.get('/conversations/:userId', (req, res) => getLastConversationsController.handle(req, res))
 

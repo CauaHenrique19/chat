@@ -11,10 +11,10 @@ export class MessageRepository implements IMessageRepository{
         return messageDb
     }
 
-    async update(id: string, status: MessageEnum): Promise<Message> {
+    async update(ids: string[], status: MessageEnum): Promise<Message[]> {
         const [messageDb] = await knex('messages')
             .update({ status }, '*')
-            .where({ id })
+            .whereIn('id', ids)
 
         return messageDb
     }
