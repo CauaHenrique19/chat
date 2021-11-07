@@ -19,6 +19,8 @@ const Chat = () => {
 
     const [messagesOfConversations, setMessagesOfConversations] = useState([])
     const [message, setMessage] = useState('')
+
+    const [conversationSelected, setConversationSelected] = useState({})
     const [userSelected, setUseSelected] = useState({})
 
     const io = socket('http://localhost:3001')
@@ -58,6 +60,26 @@ const Chat = () => {
             if (chat) chat.scrollTop = chat.scrollHeight
         }
     }, [userSelected])
+
+    
+    useEffect(() => {
+        async function readMessages(){
+            if(messagesOfConversations.length > 0){
+                const pendingMessagesIds = messagesOfConversations
+                    .filter(message => message.status === 'pending' && message.from !== user.id)
+                    .map(message => message.id)
+    
+                if(pendingMessagesIds.length > 0){
+                    await api.put('/messages', { ids: pendingMessagesIds })
+                    conversationSelected.pendingMessages = 0
+                    const index = lastMessages.findIndex(lastMessage => lastMessage.id === conversationSelected.id)
+                    lastMessages[index] = conversationSelected
+                    setLastMessages([...lastMessages])
+                }
+            }
+        }
+        readMessages()
+    }, [messagesOfConversations])
 
     function handleLogout() {
         localStorage.removeItem('chat_user')
@@ -121,7 +143,14 @@ const Chat = () => {
                         lastMessages &&
                         lastMessages.length > 0 ?
                         lastMessages.map(lastMessage => (
-                            <div key={lastMessage.message.id} className="last-conversation" onClick={() => setUseSelected(lastMessage.user)}>
+                            <div 
+                                key={lastMessage.message.id} 
+                                className="last-conversation" 
+                                onClick={() => { 
+                                    setUseSelected(lastMessage.user)
+                                    setConversationSelected(lastMessage)
+                                }}
+                            >
                                 <img src={lastMessage.user.url_image} alt={lastMessage.user.name} />
                                 <div className="info-last-conversation">
                                     <div className="header-last-conversation">
@@ -177,7 +206,7 @@ const Chat = () => {
                                 messagesOfConversations &&
                                 messagesOfConversations.length > 0 && 
                                 messagesOfConversations.map(message => (
-                                    <div className={message.from === user.id ? "message my last" : "message last"}>
+                                    <div key={message.id} className={message.from === user.id ? "message my last" : "message last"}>
                                         <p className="content">{message.content}</p>
                                         {/* <p className="date">21/03/2021 às 17:10</p> */}
                                     </div>
