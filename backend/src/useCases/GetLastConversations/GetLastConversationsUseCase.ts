@@ -44,7 +44,8 @@ export class GetLastConversationsUseCase {
             })
             .map(async (conversation) => {
                 const user = await this.userRepository.findById(conversation.to)
-                const lastConversation : IGetLastConversationsDTO = { ...conversation, user }
+                const pendingMessages = await this.messageRepository.getPendingMessages(conversation.from, conversation.to)
+                const lastConversation : IGetLastConversationsDTO = { ...conversation, user, pendingMessages }
                 return lastConversation
             })
         )

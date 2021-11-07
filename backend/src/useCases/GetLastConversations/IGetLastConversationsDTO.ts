@@ -6,4 +6,5 @@ export interface IGetLastConversationsDTO{
     to: string
     message: Message
     user: User
+    pendingMessages: any
 }

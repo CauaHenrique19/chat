@@ -47,5 +47,13 @@ export class MessageRepository implements IMessageRepository{
 
         return messages
     }
+
+    async getPendingMessages(from: string, to: string): Promise<Number | string> {
+        const [{ count }] = await knex('messages')
+            .count('id')
+            .where({ from, to, status: MessageEnum.Pending })
+        
+        return count
+    }
     
 }
