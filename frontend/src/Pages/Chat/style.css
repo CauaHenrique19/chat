@@ -98,7 +98,7 @@
     background-color: var(--primary-color);
     border-radius: 50px;
 }
-.chat-container .last-messages-container .last-messages-content .friend{
+.chat-container .last-messages-container .last-messages-content .last-conversation{
     display: flex;
 
     width: 100%;
@@ -107,36 +107,39 @@
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.3s;
 }
-.chat-container .last-messages-container .last-messages-content .friend:hover{
+.chat-container .last-messages-container .last-messages-content .last-conversation:hover{
     background-color: var(--primary-hover-color);
 }
-.chat-container .last-messages-container .last-messages-content .friend img{
+.chat-container .last-messages-container .last-messages-content .last-conversation img{
     margin-right: 15px;
 }
-.chat-container .last-messages-container .last-messages-content .friend .header-friend{
+.chat-container .last-messages-container .last-messages-content .last-conversation .info-last-conversation{
+    width: 100%;
+}
+.chat-container .last-messages-container .last-messages-content .last-conversation .header-last-conversation{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
 }
-.chat-container .last-messages-container .last-messages-content .friend .header-friend .last-message{
+.chat-container .last-messages-container .last-messages-content .last-conversation .header-last-conversation .last-message{
     color: rgba(136, 136, 136, 0.808);
 }
-.chat-container .last-messages-container .last-messages-content .friend .content-friend{
+.chat-container .last-messages-container .last-messages-content .last-conversation .content-last-conversation{
     display: flex;
     align-items: center;
 }
-.chat-container .last-messages-container .last-messages-content .friend .message-preview{
+.chat-container .last-messages-container .last-messages-content .last-conversation .message-preview{
     width: 85%;
     margin-right: 10px;
     color: rgb(209, 209, 209);
 }
-.chat-container .last-messages-container .last-messages-content .friend .message-preview ion-icon{
+.chat-container .last-messages-container .last-messages-content .last-conversation .message-preview ion-icon{
     font-size: 1.3rem;
     margin-right: 5px;
 }
-.chat-container .last-messages-container .last-messages-content .friend .count-messages{
+.chat-container .last-messages-container .last-messages-content .last-conversation .count-messages{
     width: 20px;
     height: 20px;
 

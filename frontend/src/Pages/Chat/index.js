@@ -15,21 +15,32 @@ const Chat = () => {
 
     const history = useHistory()
 
-    const { friends, setFriends, user, darkTheme, setDarkTheme } = useContext(Context)
+    const { friends, setFriends, lastMessages, setLastMessages, user, darkTheme, setDarkTheme } = useContext(Context)
 
-    const [lastMessages, setLastMessages] = useState([])
+    const [messagesOfConversations, setMessagesOfConversations] = useState([])
     const [message, setMessage] = useState('')
     const [userSelected, setUseSelected] = useState({})
 
     const io = socket('http://localhost:3001')
 
     async function getFriends() {
-        const result = await api.get(`http://localhost:3001/friendship/friends/${user.id}`)
+        const result = await api.get(`/friendship/friends/${user.id}`)
         setFriends(result.data)
+    }
+
+    async function getLastMessages(){
+        const result = await api.get(`/conversations/${user.id}`)
+        setLastMessages(result.data)
+    }
+
+    async function getMessagesOfConversations(){
+        const result = await api.get(`/messages/${user.id}/${userSelected.id}`)
+        setMessagesOfConversations(result.data)
     }
 
     useEffect(() => {
         if (friends.length === 0) getFriends()
+        if (lastMessages.length === 0) getLastMessages()
 
         io.on('connect', () => {
             io.emit('receive_data', user)
@@ -38,13 +49,14 @@ const Chat = () => {
         io.on('message', (data) => {
             console.log(data)
         })
-
-        console.log('aqui')
     }, [])
 
     useEffect(() => {
-        const chat = document.querySelector('.chat')
-        if (chat) chat.scrollTop = chat.scrollHeight
+        if(userSelected.id){
+            getMessagesOfConversations()
+            const chat = document.querySelector('.chat')
+            if (chat) chat.scrollTop = chat.scrollHeight
+        }
     }, [userSelected])
 
     function handleLogout() {
@@ -108,17 +120,17 @@ const Chat = () => {
                     {
                         lastMessages &&
                         lastMessages.length > 0 ?
-                        lastMessages.map(friend => (
-                            <div className="friend" onClick={() => setUseSelected(friend)}>
-                                <img key={friend.id} src={friend.url_image} alt="user" />
-                                <div className="info-friend">
-                                    <div className="header-friend">
-                                        <h3 className="friend-name">{friend.name}</h3>
+                        lastMessages.map(lastMessage => (
+                            <div key={lastMessage.message.id} className="last-conversation" onClick={() => setUseSelected(lastMessage.user)}>
+                                <img src={lastMessage.user.url_image} alt={lastMessage.user.name} />
+                                <div className="info-last-conversation">
+                                    <div className="header-last-conversation">
+                                        <h3 className="last-conversation-user-name">{lastMessage.user.name}</h3>
                                         <p className="last-message">3m atrás</p>
                                     </div>
-                                    <div className="content-friend">
+                                    <div className="content-last-conversation">
                                         <p className="message-preview">
-                                            Lorem Ipsum is simply dummy...
+                                            {lastMessage.message.content}...
                                         </p>
                                         <div className="count-messages">
                                             3
@@ -158,54 +170,16 @@ const Chat = () => {
                             </div>
                         </div>
                         <main className="chat-messages">
-                            <div className="message">
-                                <p className="content">Oi</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message my">
-                                <p className="content">Oi</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message">
-                                <p className="content">Tudo bem cria?</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message my">
-                                <p className="content">To sim mano, e você?</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message">
-                                <p className="content">To dboa</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message">
-                                <p className="content">fazendo oq meu bom?</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message my last">
-                                <p className="content">
-                                    DOKJASDJASIODHASDOIASGDIOAHSDASDOKJASDJASIODHASDOIASGDIOAHSDA
-                                    SDOKJASDJASIODHASDOIASGDIOAHSDASDOKJASDJASIODHASDOIASGDIOAHSDASDOKJASD
-                                    JASIODHASDOIASGDIOAHSDASDOKJASDJASIODHASDOIASGDIOAHSDAS
-                                </p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message">
-                                <p className="content">??????????????????</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message last">
-                                <p className="content">Nerdola</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message my">
-                                <p className="content">Teu pai aquele corno fudido</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
-                            <div className="message my last">
-                                <p className="content">😊</p>
-                                {/* <p className="date">21/03/2021 às 17:10</p> */}
-                            </div>
+                            {
+                                messagesOfConversations &&
+                                messagesOfConversations.length > 0 && 
+                                messagesOfConversations.map(message => (
+                                    <div className={message.from === user.id ? "message my last" : "message last"}>
+                                        <p className="content">{message.content}</p>
+                                        {/* <p className="date">21/03/2021 às 17:10</p> */}
+                                    </div>
+                                ))
+                            }
                         </main>
                         <div className="send-message">
                             <input type="text" placeholder="Envie sua mensagem" value={message} onChange={(e) => setMessage(e.target.value)} />
