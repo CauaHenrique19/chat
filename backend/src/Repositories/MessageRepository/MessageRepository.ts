@@ -1,7 +1,7 @@
 import { Message } from "../../Entities/Message";
 import { IMessageRepository } from "./IMessageRepository";
-import knex from '../../database/connection'
 import { MessageEnum } from "../../Enums/MessageEnum";
+import knex from '../../database/connection'
 
 export class MessageRepository implements IMessageRepository{
     async save(message: Message): Promise<Message> {
@@ -37,4 +37,15 @@ export class MessageRepository implements IMessageRepository{
 
         return lastMessage
     }
+
+    async getMessagesBetweenUsers(from: string, to: string): Promise<Message[]> {
+        const messages = await knex('messages')
+            .select('*')
+            .where({ to, from })
+            .orWhere({ to: from, from: to })
+            .orderBy('created_at')
+
+        return messages
+    }
+    
 }
