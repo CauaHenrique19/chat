@@ -18,4 +18,23 @@ export class MessageRepository implements IMessageRepository{
 
         return messageDb
     }
+
+    async getLastConversations(userId: string): Promise<Message[]> {
+        const { rows: conversations } = await knex
+            .raw(`select distinct messages.from, messages.to from messages 
+        where messages.to = '${userId}' or messages.from = '${userId}'`)
+
+        return conversations
+    }
+
+    async getLastMessageBetweenUsers(from: string, to: string): Promise<Message> {
+        const [lastMessage] = await knex('messages')
+            .select('*')
+            .where({ to, from })
+            .orWhere({ to: from, from: to })
+            .orderBy('created_at', 'desc')
+            .limit(1)
+
+        return lastMessage
+    }
 }

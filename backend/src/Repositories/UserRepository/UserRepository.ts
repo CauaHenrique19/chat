@@ -27,4 +27,14 @@ export class UserRepository implements IUserRepository{
 
         return user
     }
+
+    async findById(id: string): Promise<User> {
+        const user = await knex('users')
+            .select('id', 'name', 'email', 'key_image', 'url_image')
+            .where({ id })
+            .first()
+
+        return user
+    }
+    
 }
