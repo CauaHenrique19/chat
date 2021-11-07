@@ -132,9 +132,12 @@ const Chat = () => {
                                         <p className="message-preview">
                                             {lastMessage.message.content}...
                                         </p>
-                                        <div className="count-messages">
-                                            3
-                                        </div>
+                                        {
+                                            lastMessage.pendingMessages > 0 &&
+                                            <div className="count-messages">
+                                                {lastMessage.pendingMessages}
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
