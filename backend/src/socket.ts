@@ -9,10 +9,6 @@ const startIo = (server: httpServer) => {
             console.log(`Usuário conectado ${socket.id} : ${data.email}`)
             socket.join(`${data.id}`)
         })
-    
-        socket.on('received_message', data => {
-            io.to(`${data.to}`).emit("message", data);
-        })
     })
 
     return io
