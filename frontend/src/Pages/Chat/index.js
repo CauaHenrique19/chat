@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from '../../context/context'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -15,8 +15,11 @@ const Chat = () => {
 
     const history = useHistory()
 
-    const { friends, setFriends, lastMessages, setLastMessages, user, darkTheme, setDarkTheme } = useContext(Context)
+    const chatRef= useRef()
+    const { friends, setFriends, /*lastMessages, setLastMessages,*/ user, darkTheme, setDarkTheme } = useContext(Context)
+    const [receivedMessage, setReceivedMessage] = useState({})
 
+    const [lastMessages, setLastMessages] = useState([])
     const [messagesOfConversations, setMessagesOfConversations] = useState([])
     const [message, setMessage] = useState('')
 
@@ -25,15 +28,23 @@ const Chat = () => {
 
     const io = socket('http://localhost:3001')
 
-    async function getFriends() {
-        const result = await api.get(`/friendship/friends/${user.id}`)
-        setFriends(result.data)
-    }
+    useEffect(() => {
+        api.get(`/friendship/friends/${user.id}`)
+            .then(res => setFriends(res.data))
+            .catch(error => console.log(error))
 
-    async function getLastMessages(){
-        const result = await api.get(`/conversations/${user.id}`)
-        setLastMessages(result.data)
-    }
+        api.get(`/conversations/${user.id}`)
+            .then(res => setLastMessages(res.data))
+            .catch(error => console.log(error))
+    
+        io.on('connect', () => {
+            io.emit('receive_data', user)
+        })
+        
+        io.on('message', (message) => {
+            setReceivedMessage(message)
+        })
+    }, [])
 
     async function getMessagesOfConversations(){
         const result = await api.get(`/messages/${user.id}/${userSelected.id}`)
@@ -41,27 +52,32 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        if (friends.length === 0) getFriends()
-        if (lastMessages.length === 0) getLastMessages()
-
-        io.on('connect', () => {
-            io.emit('receive_data', user)
-        })
-    
-        io.on('message', (data) => {
-            console.log(data)
-        })
-    }, [])
+        if(receivedMessage.id){
+            const conversation = lastMessages.find(lastMessage => receivedMessage.from === lastMessage.user.id)
+            const indexOfConversation = lastMessages.indexOf(conversation)
+            conversation.pendingMessages = parseInt(conversation.pendingMessages) + 1
+            conversation.message = receivedMessage
+            lastMessages[indexOfConversation] = conversation
+            setLastMessages([...lastMessages])
+            
+            if(conversationSelected.user.id === receivedMessage.from && !messagesOfConversations.includes(receivedMessage)){
+                setMessagesOfConversations([...messagesOfConversations, receivedMessage])
+            }
+        }
+    }, [receivedMessage])
 
     useEffect(() => {
         if(userSelected.id){
             getMessagesOfConversations()
-            const chat = document.querySelector('.chat')
-            if (chat) chat.scrollTop = chat.scrollHeight
         }
     }, [userSelected])
-
     
+    useEffect(() => {
+        if(chatRef.current){
+            chatRef.current.scrollTop = chatRef.current.scrollHeight
+        }
+    }, [messagesOfConversations])
+
     useEffect(() => {
         async function readMessages(){
             if(messagesOfConversations.length > 0){
@@ -88,14 +104,13 @@ const Chat = () => {
     }
 
     function handleMessage() {
-        const messageObj = {
+        const messageToSend = {
             from: user.id,
             to: userSelected.id,
             message
         }
 
-        io.emit('received_message', messageObj)
-        console.log(messageObj)
+        
     }
 
     function handleTheme() {
@@ -201,7 +216,7 @@ const Chat = () => {
                                 </button>
                             </div>
                         </div>
-                        <main className="chat-messages">
+                        <main ref={chatRef} className="chat-messages">
                             {
                                 messagesOfConversations &&
                                 messagesOfConversations.length > 0 && 
