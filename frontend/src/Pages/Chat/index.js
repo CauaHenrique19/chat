@@ -26,17 +26,11 @@ const Chat = () => {
     const [conversationSelected, setConversationSelected] = useState({})
     const [userSelected, setUseSelected] = useState({})
 
-    const io = socket('http://localhost:3001')
-
     useEffect(() => {
-        api.get(`/friendship/friends/${user.id}`)
-            .then(res => setFriends(res.data))
-            .catch(error => console.log(error))
-
-        api.get(`/conversations/${user.id}`)
-            .then(res => setLastMessages(res.data))
-            .catch(error => console.log(error))
-    
+        const io = socket('http://localhost:3001', {
+            transports: ["websocket", "polling"]
+        })
+        
         io.on('connect', () => {
             io.emit('receive_data', user)
         })
@@ -44,6 +38,14 @@ const Chat = () => {
         io.on('message', (message) => {
             setReceivedMessage(message)
         })
+
+        api.get(`/friendship/friends/${user.id}`)
+            .then(res => setFriends(res.data))
+            .catch(error => console.log(error))
+
+        api.get(`/conversations/${user.id}`)
+            .then(res => setLastMessages(res.data))
+            .catch(error => console.log(error))
     }, [])
 
     async function getMessagesOfConversations(){
@@ -60,8 +62,10 @@ const Chat = () => {
             lastMessages[indexOfConversation] = conversation
             setLastMessages([...lastMessages])
             
-            if(conversationSelected.user.id === receivedMessage.from && !messagesOfConversations.includes(receivedMessage)){
-                setMessagesOfConversations([...messagesOfConversations, receivedMessage])
+            if(conversationSelected.user && conversationSelected.user.id === receivedMessage.from){
+                if(!messagesOfConversations.includes(receivedMessage)){
+                    setMessagesOfConversations([...messagesOfConversations, receivedMessage])
+                }
             }
         }
     }, [receivedMessage])
@@ -107,10 +111,19 @@ const Chat = () => {
         const messageToSend = {
             from: user.id,
             to: userSelected.id,
-            message
+            content: message
         }
 
-        
+        if(messageToSend.content){
+            api.post('/message', messageToSend)
+                .then(res => {
+                    setMessagesOfConversations([...messagesOfConversations, res.data])
+                    conversationSelected.message = res.data
+                    setConversationSelected(conversationSelected)
+                    setMessage('')
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     function handleTheme() {
@@ -211,7 +224,12 @@ const Chat = () => {
                                 <button>
                                     <ion-icon name="person-remove-outline"></ion-icon>
                                 </button>
-                                <button onClick={() => setUseSelected({})}>
+                                <button 
+                                    onClick={() => {
+                                        setUseSelected({})
+                                        setConversationSelected({})
+                                    }}
+                                >
                                     <ion-icon name="close-outline"></ion-icon>
                                 </button>
                             </div>
@@ -229,7 +247,7 @@ const Chat = () => {
                             }
                         </main>
                         <div className="send-message">
-                            <input type="text" placeholder="Envie sua mensagem" value={message} onChange={(e) => setMessage(e.target.value)} />
+                            <input type="text" placeholder="Envie sua mensagem" value={message} onChange={(e) => setMessage(e.target.value)} onKeyUp={(e) => e.key === 'Enter' && handleMessage() } />
                             <button>
                                 <ion-icon name="happy-outline"></ion-icon>
                             </button>
