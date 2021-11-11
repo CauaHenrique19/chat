@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from '../../context/context'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { Picker, Emoji } from 'emoji-mart'
+import { renderToString } from 'react-dom/server'
 
 import socket from 'socket.io-client'
 import api from '../../services/api'
@@ -9,22 +11,27 @@ import ChatImage from '../../assets/Mailbox.png'
 import MessageImage from '../../assets/Message.png'
 import SearchImage from '../../assets/Magnifier.png'
 
+import 'emoji-mart/css/emoji-mart.css'
 import './style.css'
+import translateEmoji from '../../utils/l18n-emoji'
 
 const Chat = () => {
 
     const history = useHistory()
 
     const chatRef= useRef()
-    const { friends, setFriends, /*lastMessages, setLastMessages,*/ user, darkTheme, setDarkTheme } = useContext(Context)
+    const { friends, setFriends, user, darkTheme, setDarkTheme } = useContext(Context)
     const [receivedMessage, setReceivedMessage] = useState({})
 
     const [lastMessages, setLastMessages] = useState([])
     const [messagesOfConversations, setMessagesOfConversations] = useState([])
+
+    const [messageInput, setMessageInput] = useState('')
     const [message, setMessage] = useState('')
 
     const [conversationSelected, setConversationSelected] = useState({})
     const [userSelected, setUseSelected] = useState({})
+    const [viewEmojiPicker, setViewEmojiPicker] = useState(false)
 
     useEffect(() => {
         const io = socket('http://localhost:3001', {
@@ -111,7 +118,7 @@ const Chat = () => {
         const messageToSend = {
             from: user.id,
             to: userSelected.id,
-            content: message
+            content: messageInput
         }
 
         if(messageToSend.content){
@@ -186,9 +193,7 @@ const Chat = () => {
                                         <p className="last-message">3m atrás</p>
                                     </div>
                                     <div className="content-last-conversation">
-                                        <p className="message-preview">
-                                            {lastMessage.message.content}...
-                                        </p>
+                                        <p className="message-preview" dangerouslySetInnerHTML={{ __html: lastMessage.message.content }}></p>
                                         {
                                             lastMessage.pendingMessages > 0 &&
                                             <div className="count-messages">
@@ -240,15 +245,49 @@ const Chat = () => {
                                 messagesOfConversations.length > 0 && 
                                 messagesOfConversations.map(message => (
                                     <div key={message.id} className={message.from === user.id ? "message my last" : "message last"}>
-                                        <p className="content">{message.content}</p>
+                                        <p className="content" dangerouslySetInnerHTML={{ __html: message.content }} ></p>
                                         {/* <p className="date">21/03/2021 às 17:10</p> */}
                                     </div>
                                 ))
                             }
                         </main>
                         <div className="send-message">
-                            <input type="text" placeholder="Envie sua mensagem" value={message} onChange={(e) => setMessage(e.target.value)} onKeyUp={(e) => e.key === 'Enter' && handleMessage() } />
-                            <button>
+                            {
+                                viewEmojiPicker &&
+                                <Picker 
+                                    theme="dark"
+                                    i18n={translateEmoji}
+                                    color="#964bff"
+                                    onSelect={(emoji) => {
+                                        const newMessage = message + emoji.native
+                                        const newMessageInput = messageInput + renderToString(
+                                            <span
+                                                dangerouslySetInnerHTML={{
+                                                    __html: Emoji({
+                                                        html: true,
+                                                        set: "apple",
+                                                        emoji: emoji.colons,
+                                                        size: 25
+                                                    })
+                                                }}
+                                            />
+                                        )     
+                                        setMessageInput(newMessageInput)
+                                        setMessage(newMessage)
+                                        setViewEmojiPicker(false)
+                                    }} 
+                                />
+                            }
+                            <input 
+                                type="text" 
+                                placeholder="Envie sua mensagem" 
+                                value={message} 
+                                onChange={(e) => {
+                                    setMessage(e.target.value)
+                                    setMessageInput(e.target.value)
+                                }} 
+                            onKeyUp={(e) => e.key === 'Enter' && handleMessage() } />
+                            <button onClick={() => setViewEmojiPicker(!viewEmojiPicker)} >
                                 <ion-icon name="happy-outline"></ion-icon>
                             </button>
                             <button onClick={handleMessage}>
