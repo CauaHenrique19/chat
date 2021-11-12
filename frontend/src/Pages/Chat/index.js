@@ -128,6 +128,7 @@ const Chat = () => {
                     conversationSelected.message = res.data
                     setConversationSelected(conversationSelected)
                     setMessage('')
+                    setMessageInput('')
                 })
                 .catch(error => console.log(error))
         }
