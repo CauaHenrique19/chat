@@ -2,6 +2,7 @@ import { Friendship } from "../../Entities/Friendship";
 import { FriendshipEnum } from "../../Enums/FriendshipEnum";
 import { IFriendshipRepository } from "../../Repositories/FriendshipRepository/IFriendshipRepository";
 import { ICreateFriendshipDTO } from "./ICreateFriendshipDTO";
+import { io } from "../../server";
 
 export class CreateFriendshipUseCase{
     constructor(private friendshipRepository : IFriendshipRepository){}
@@ -13,6 +14,8 @@ export class CreateFriendshipUseCase{
             created_at: new Date(),
             status: FriendshipEnum.pending
         })
+
+        io.to(`${friendshipEntity.receiver_id}`).emit('solicitation_friendship', friendshipEntity)
 
         const friendshipDb = await this.friendshipRepository.save(friendshipEntity)
         return friendshipDb
