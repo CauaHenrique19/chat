@@ -6,4 +6,5 @@ export interface IFriendshipRepository{
     save(friendship: Friendship) : Promise<Friendship>
     update(id: string, status: FriendshipEnum) : Promise<Friendship>
     getFriends(userId: string) : Promise<User[]>
+    getSolicitationsByReceiver(receiverId: string) : Promise<Friendship[]>
 }

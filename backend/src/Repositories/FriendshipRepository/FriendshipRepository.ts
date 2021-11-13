@@ -1,8 +1,8 @@
 import { Friendship } from "../../Entities/Friendship";
 import { IFriendshipRepository } from "./IFriendshipRepository";
-import knex from '../../database/connection'
 import { User } from "../../Entities/User";
 import { FriendshipEnum } from "../../Enums/FriendshipEnum";
+import knex from '../../database/connection'
 
 export class FriendshipRepository implements IFriendshipRepository{
     async save(friendship: Friendship) : Promise<Friendship>{
@@ -56,5 +56,13 @@ export class FriendshipRepository implements IFriendshipRepository{
         friends.push(...usersByReceiverId)
 
         return friends
+    }
+
+    async getSolicitationsByReceiver(receiverId: string): Promise<Friendship[]> {
+        const solicitations = await knex('friendship')
+            .select('*')
+            .where({ receiver_id: receiverId, status: FriendshipEnum.pending })
+
+        return solicitations
     }
 }
