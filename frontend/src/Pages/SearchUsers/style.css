@@ -1,0 +1,83 @@
+.search-users-container{
+    width: calc(100% - 750px);
+    height: 100%;
+}
+.search-users-container .header-search-users-container{
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid var(--border-color);
+}
+.search-users-container .header-search-users-container input{
+    width: 90%;
+    height: 100%;
+    border: none;
+    padding: 0 30px;
+    font-size: 1.5rem;
+    outline: none;
+}
+.search-users-container .header-search-users-container button{
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: initial;
+    border: none;
+    cursor: pointer;
+
+    border-radius: 50px;
+}
+.search-users-container .header-search-users-container button:hover{
+    background-color: var(--primary-hover-color);
+}
+.search-users-container .header-search-users-container button ion-icon{
+    font-size: 1.5rem;
+}
+.search-users-container .header-search-users-container > ion-icon{
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.search-users-container .searched-users-container{
+    padding: 15px 30px;
+}
+.search-users-container .searched-users-container h1{
+    margin-bottom: 30px;
+}
+.search-users-container .searched-users-container .user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+.search-users-container .searched-users-container .user:hover{
+    background-color: var(--primary-hover-color);
+}
+.search-users-container .searched-users-container .user .user-content{
+    display: flex;
+    align-items: center;
+}
+.search-users-container .searched-users-container .user .user-content img{
+    margin-right: 10px;
+}
+.search-users-container .searched-users-container .user button{
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    padding: 0px 15px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+.search-users-container .searched-users-container .user button:hover{
+    background-color: var(--dark-primary-color);
+}

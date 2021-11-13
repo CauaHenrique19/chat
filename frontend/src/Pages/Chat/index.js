@@ -6,15 +6,15 @@ import { renderToString } from 'react-dom/server'
 
 import socket from 'socket.io-client'
 import api from '../../services/api'
+import translateEmoji from '../../utils/l18n-emoji'
 
 import ChatImage from '../../assets/Mailbox.png'
 import MessageImage from '../../assets/Message.png'
 import SearchImage from '../../assets/Magnifier.png'
+import SearchUsers from '../SearchUsers'
 
 import 'emoji-mart/css/emoji-mart.css'
 import './style.css'
-import translateEmoji from '../../utils/l18n-emoji'
-import SearchFriends from '../SearchFriends'
 
 const Chat = () => {
 
@@ -215,7 +215,7 @@ const Chat = () => {
                     }
                 </div>
             </div>
-            { viewSearchPage && <SearchFriends onClose={() => setViewSearchPage(false)} />}
+            { viewSearchPage && <SearchUsers onClose={() => setViewSearchPage(false)} />}
             {
                 userSelected.id &&
                     <div className="chat-content">

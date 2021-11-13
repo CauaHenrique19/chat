@@ -8,6 +8,7 @@
 }
 :root{
     --primary-color: #964bff;
+    --dark-primary-color: #732dd4;
     --secondary-color: #005dd6;
     --border-color: rgba(255, 255, 255, 0.11);
     --primary-hover-color: rgba(136, 136, 136, 0.178);
