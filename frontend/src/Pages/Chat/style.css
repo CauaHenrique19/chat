@@ -422,6 +422,8 @@
     background-color: initial;
     font-size: 2rem;
     cursor: pointer;
+
+    position: relative;
 }
 .chat-container .my-friends .menu-my-friends button.selected{
     border-top: 4px solid var(--primary-color);
@@ -430,4 +432,17 @@
 .chat-container .my-friends .menu-my-friends button:hover{
     border-top: 4px solid var(--primary-color);
     background-color: var(--border-color);
+}
+.chat-container .my-friends .menu-my-friends button .quantity-solicitations{
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color: var(--primary-color);
 }

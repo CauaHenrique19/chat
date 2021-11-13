@@ -4,7 +4,6 @@ import PrivateRoute from './Components/PrivateRoute'
 
 import Login from './Pages/Login'
 import Chat from './Pages/Chat'
-import AddFriends from './Pages/AddFriends'
 
 const Routes = () => {
     return (
@@ -12,7 +11,6 @@ const Routes = () => {
             <Switch>
                 <Route path="/login" component={Login} />
                 <PrivateRoute path="/chat" component={Chat} />
-                <PrivateRoute path="/add-friends" component={AddFriends} />
             </Switch>
         </BrowserRouter>
     )

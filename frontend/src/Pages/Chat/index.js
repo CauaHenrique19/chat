@@ -14,12 +14,14 @@ import SearchImage from '../../assets/Magnifier.png'
 import 'emoji-mart/css/emoji-mart.css'
 import './style.css'
 import translateEmoji from '../../utils/l18n-emoji'
+import SearchFriends from '../SearchFriends'
 
 const Chat = () => {
 
     const history = useHistory()
 
     const chatRef= useRef()
+
     const { friends, setFriends, user, darkTheme, setDarkTheme } = useContext(Context)
     const [receivedMessage, setReceivedMessage] = useState({})
 
@@ -32,6 +34,7 @@ const Chat = () => {
     const [conversationSelected, setConversationSelected] = useState({})
     const [userSelected, setUseSelected] = useState({})
     const [viewEmojiPicker, setViewEmojiPicker] = useState(false)
+    const [viewSearchPage, setViewSearchPage] = useState(false)
 
     useEffect(() => {
         const io = socket('http://localhost:3001', {
@@ -147,7 +150,7 @@ const Chat = () => {
                         <li className="selected">
                             <ion-icon name="home-outline"></ion-icon>
                         </li>
-                        <li>
+                        <li onClick={() => setViewSearchPage(!viewSearchPage)} >
                             <ion-icon name="search-outline"></ion-icon>
                         </li>
                         <li>
@@ -212,8 +215,9 @@ const Chat = () => {
                     }
                 </div>
             </div>
+            { viewSearchPage && <SearchFriends onClose={() => setViewSearchPage(false)} />}
             {
-                userSelected.id ?
+                userSelected.id &&
                     <div className="chat-content">
                         <div className="header-chat-content">
                             <div className="user-selected-info">
@@ -295,11 +299,15 @@ const Chat = () => {
                                 <ion-icon name="send-outline"></ion-icon>
                             </button>
                         </div>
-                    </div> :
-                    <div className="start-chat-container" >
-                        <img src={ChatImage} alt="" />
-                        <h1>Bem Vindo! Pronto para conversar?</h1>
-                    </div>
+                    </div> 
+            }
+            {
+                !userSelected.id && !viewSearchPage &&
+                <div className="start-chat-container" >
+                    <img src={ChatImage} alt="" />
+                    <h1>Bem Vindo! Pronto para conversar?</h1>
+                </div>
+
             }
             <div className="my-friends">
                 <div className="header-my-friends">
@@ -336,6 +344,9 @@ const Chat = () => {
                     </button>
                     <button>
                         <ion-icon name="person-add-outline"></ion-icon>
+                        <div className="quantity-solicitations">
+                            3
+                        </div>
                     </button>
                 </div>
             </div>
