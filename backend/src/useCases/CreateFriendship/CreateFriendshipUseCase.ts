@@ -20,7 +20,7 @@ export class CreateFriendshipUseCase{
             status: FriendshipEnum.pending
         })
 
-        const user = await this.userRepository.findById(friendshipEntity.receiver_id)
+        const user = await this.userRepository.findById(friendshipEntity.requester_id)
         const friendshipDb = await this.friendshipRepository.save(friendshipEntity)
 
         const friendshipFinal : GetFriendshipDTO = {
