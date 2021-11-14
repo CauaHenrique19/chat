@@ -1,7 +1,6 @@
-import { Friendship } from "../../Entities/Friendship";
 import { IFriendshipRepository } from "../../Repositories/FriendshipRepository/IFriendshipRepository";
 import { IUserRepository } from "../../Repositories/UserRepository/IUserRepository";
-import { GetFriendshipByReceiverDTO } from "./GetFriendshipByReceiverDTO";
+import { GetFriendshipDTO } from "../../DTO/GetFriendshipDTO";
 
 export class GetSolicitationsByReceiverUseCase{
     constructor(
@@ -9,12 +8,12 @@ export class GetSolicitationsByReceiverUseCase{
         private userRepository: IUserRepository
     ){}
 
-    async execute(receiverId: string) : Promise<GetFriendshipByReceiverDTO[]>{
+    async execute(receiverId: string) : Promise<GetFriendshipDTO[]>{
         const solicitations = await this.friendshipRepository.getSolicitationsByReceiver(receiverId)
 
         const solicitationsWithUsers = Promise.all(solicitations.map(async (solicitation) => {
             const user = await this.userRepository.findById(solicitation.requester_id)
-            const newSolicitation : GetFriendshipByReceiverDTO = {
+            const newSolicitation : GetFriendshipDTO = {
                 solicitation,
                 user
             }
