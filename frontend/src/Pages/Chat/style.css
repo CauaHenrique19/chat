@@ -341,12 +341,12 @@
     height: 30%;
     margin-bottom: 20px;
 }
-.chat-container .my-friends{
+.chat-container .right-container{
     width: 300px;
     height: 100%;
     border-left: 1px solid var(--border-color);
 }
-.chat-container .my-friends .header-my-friends{
+.chat-container .right-container .header-my-friends{
     height: 100px;
     
     display: flex;
@@ -354,7 +354,7 @@
     justify-content: center;
     border-bottom: 1px solid var(--border-color);
 }
-.chat-container .my-friends .header-my-friends .input-container{
+.chat-container .right-container .header-my-friends .input-container{
     width: 90%;
     display: flex;
     align-items: center;
@@ -362,7 +362,7 @@
     background-color: var(--primary-hover-color);
     padding: 0 25px;
 }
-.chat-container .my-friends .header-my-friends .input-container input{
+.chat-container .right-container .header-my-friends .input-container input{
     height: 50px;
     width: 100%;
     border: none;
@@ -370,24 +370,24 @@
     background-color: initial;
     font-size: 1.2rem;
 }
-.chat-container .my-friends .header-my-friends .input-container input::placeholder{
+.chat-container .right-container .header-my-friends .input-container input::placeholder{
     font-size: 1.1rem;
     color: var(--primary-font-color);
 }
-.chat-container .my-friends .header-my-friends .input-container ion-icon{
+.chat-container .right-container .header-my-friends .input-container ion-icon{
     color: var(--primary-font-color);
     font-size: 1.5rem;
 }
-.chat-container .my-friends .header-friends-content{
+.chat-container .right-container .header-friends-content{
     height: 50px;
     padding: 0px 15px;
     display: flex;
     align-items: center;
 }
-.chat-container .my-friends .friends-content{
+.chat-container .right-container .friends-content{
     height: calc(100% - 250px);
 }
-.chat-container .my-friends .friends-content .friend{
+.chat-container .right-container .friends-content .friend{
     display: flex;
     align-items: center;
 
@@ -396,25 +396,25 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.chat-container .my-friends .friends-content .friend:hover{
+.chat-container .right-container .friends-content .friend:hover{
     background-color: var(--primary-hover-color);
 }
-.chat-container .my-friends .friends-content .friend img{
+.chat-container .right-container .friends-content .friend img{
     margin-right: 15px;
 }
-.chat-container .my-friends .friends-content .friend .header-friend{
+.chat-container .right-container .friends-content .friend .header-friend{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
 }
-.chat-container .my-friends .menu-my-friends{
+.chat-container .right-container .menu-my-friends{
     height: 100px;
     display: flex;
     border-top: 1px solid var(--border-color);
 }
-.chat-container .my-friends .menu-my-friends button{
+.chat-container .right-container .menu-my-friends button{
     width: 50%;
     height: 100%;
 
@@ -425,15 +425,15 @@
 
     position: relative;
 }
-.chat-container .my-friends .menu-my-friends button.selected{
+.chat-container .right-container .menu-my-friends button.selected{
     border-top: 4px solid var(--primary-color);
     background-color: var(--border-color);
 }
-.chat-container .my-friends .menu-my-friends button:hover{
+.chat-container .right-container .menu-my-friends button:hover{
     border-top: 4px solid var(--primary-color);
     background-color: var(--border-color);
 }
-.chat-container .my-friends .menu-my-friends button .quantity-solicitations{
+.chat-container .right-container .menu-my-friends button .quantity-solicitations{
     position: absolute;
     top: 50%;
     left: 55%;
@@ -445,4 +445,55 @@
     font-size: 1rem;
     border-radius: 50px;
     background-color: var(--primary-color);
+}
+.chat-container .right-container .solicitations-content{
+    height: calc(100% - 100px);
+}
+.chat-container .right-container .solicitations-content .header-solicitations-content{
+    padding: 15px;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation:hover{
+    background-color: var(--primary-hover-color);
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation .user{
+    display: flex;
+    align-items: center;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation .user img{
+    margin-right: 15px;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation .buttons-container{
+    display: flex;
+    align-items: center;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation button{
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: initial;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid green;
+    outline: none;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation button:hover{
+    background-color: green;
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation button:hover ion-icon{
+    color: var(--primary-font-color);
+}
+.chat-container .right-container .solicitations-content .solicitations .solicitation button ion-icon{
+    font-size: 1.1rem;
+    color: green;
 }

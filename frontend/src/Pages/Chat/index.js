@@ -25,6 +25,7 @@ const Chat = () => {
     const { friends, setFriends, user, darkTheme, setDarkTheme } = useContext(Context)
     const [receivedMessage, setReceivedMessage] = useState({})
 
+    const [solicitations, setSolicitations] = useState([])
     const [lastMessages, setLastMessages] = useState([])
     const [messagesOfConversations, setMessagesOfConversations] = useState([])
 
@@ -33,6 +34,7 @@ const Chat = () => {
 
     const [conversationSelected, setConversationSelected] = useState({})
     const [userSelected, setUseSelected] = useState({})
+    const [viewSolicitations, setViewSolicitations] = useState(false)
     const [viewEmojiPicker, setViewEmojiPicker] = useState(false)
     const [viewSearchPage, setViewSearchPage] = useState(false)
 
@@ -49,12 +51,21 @@ const Chat = () => {
             setReceivedMessage(message)
         })
 
+        io.on('solicitation_friendship', (solicitation) => {
+            solicitations.push(solicitation)
+            setSolicitations(solicitations)
+        })
+
         api.get(`/friendship/friends/${user.id}`)
             .then(res => setFriends(res.data))
             .catch(error => console.log(error))
 
         api.get(`/conversations/${user.id}`)
             .then(res => setLastMessages(res.data))
+            .catch(error => console.log(error))
+
+        api.get(`/friendship/solicitations/${user.id}`)
+            .then(res => setSolicitations(res.data))
             .catch(error => console.log(error))
     }, [])
 
@@ -135,6 +146,18 @@ const Chat = () => {
                 })
                 .catch(error => console.log(error))
         }
+    }
+
+    function handleAcceptSolicitation(solicitationId){
+        api.put('/friendship', { id: solicitationId })
+            .then(res => {
+                const solicitation = solicitations.find(solicitationF => solicitationF.solicitation.id === solicitationId)
+                solicitations.splice(solicitation, 1)
+                setSolicitations([...solicitations])
+                const friend = solicitation.user
+                setFriends([...friends, friend])
+            })
+            .catch(error => console.log(error.message))
     }
 
     function handleTheme() {
@@ -309,44 +332,81 @@ const Chat = () => {
                 </div>
 
             }
-            <div className="my-friends">
-                <div className="header-my-friends">
-                    <div className="input-container">
-                        <input type="text" placeholder="Procure seus amigos" />
-                        <ion-icon name="search-outline"></ion-icon>
-                    </div>
-                </div>
-                <div className="header-friends-content">
-                    <h1>Seus amigos</h1>
-                </div>
-                <div className="friends-content">
-                    {
-                        friends &&
-                        friends.length > 0 ?
-                        friends.map(friend => (
-                            <div key={friend.id} className="friend" onClick={() => setUseSelected(friend)}>
-                                <img key={friend.id} src={friend.url_image} alt="user" />
-                                <div className="info-friend">
-                                    <h3 className="friend-name">{friend.name}</h3>
-                                    <p>{friend.email}</p>
-                                </div>
+            <div className="right-container">
+                {
+                    !viewSolicitations &&
+                    <>
+                        <div className="header-my-friends">
+                            <div className="input-container">
+                                <input type="text" placeholder="Procure seus amigos" />
+                                <ion-icon name="search-outline"></ion-icon>
                             </div>
-                        )) :
-                        <div className="nothing-container">
-                            <img src={SearchImage} alt="Nada Ainda" />
-                            <h2>Adicione alguém para conversar e mostraremos aqui!</h2>
                         </div>
-                    }
-                </div>
+                        <div className="header-friends-content">
+                            <h1>Seus amigos</h1>
+                        </div>
+                        <div className="friends-content">
+                            {
+                                friends &&
+                                friends.length > 0 ?
+                                friends.map(friend => (
+                                    <div key={friend.id} className="friend" onClick={() => setUseSelected(friend)}>
+                                        <img key={friend.id} src={friend.url_image} alt="user" />
+                                        <div className="info-friend">
+                                            <h3 className="friend-name">{friend.name}</h3>
+                                            <p>{friend.email}</p>
+                                        </div>
+                                    </div>
+                                )) :
+                                <div className="nothing-container">
+                                    <img src={SearchImage} alt="Nada Ainda" />
+                                    <h2>Adicione alguém para conversar e mostraremos aqui!</h2>
+                                </div>
+                            }
+                        </div>
+                    </>
+                }
+                {
+                    viewSolicitations &&
+                    <div className="solicitations-content">
+                        <div className="header-solicitations-content">
+                            <h1>Suas Solicitações</h1>
+                        </div>
+                        <div className="solicitations">
+                            {
+                                solicitations &&
+                                solicitations.length > 0 &&
+                                solicitations.map(solicitation => (
+                                    <div key={solicitation.solicitation.id} className="solicitation">
+                                        <div className="user">
+                                            <img src={solicitation.user.url_image} alt={solicitation.user.name} />
+                                            <div className="user-info">
+                                                <h2>{solicitation.user.name}</h2>
+                                                <p>{solicitation.user.email.substring(0, 18)}...</p>
+                                            </div>
+                                        </div>
+                                        <div className="buttons-container">
+                                            <button onClick={() => handleAcceptSolicitation(solicitation.solicitation.id)}>
+                                                <ion-icon name="checkmark-outline"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                }
                 <div className="menu-my-friends">
-                    <button className="selected">
+                    <button onClick={() => setViewSolicitations(false)} className={`${!viewSolicitations && "selected"}`}>
                         <ion-icon name="people-circle-outline"></ion-icon>
                     </button>
-                    <button>
+                    <button onClick={() => setViewSolicitations(true)} className={`${viewSolicitations && "selected"}`}>
                         <ion-icon name="person-add-outline"></ion-icon>
-                        <div className="quantity-solicitations">
-                            3
-                        </div>
+                        {
+                            solicitations &&
+                            solicitations.length > 0 &&
+                            <div className="quantity-solicitations">{solicitations.length}</div>
+                        }
                     </button>
                 </div>
             </div>
