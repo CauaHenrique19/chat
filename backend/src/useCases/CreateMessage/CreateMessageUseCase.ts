@@ -27,10 +27,10 @@ export class CreateMessageUseCase{
             messageDb.answered_message = await this.messageRepository.getMessage(messageDb.answer_message_id)
         }
 
-        const receiverUser = await this.userRepository.findById(messageDb.from)
+        const senderUser = await this.userRepository.findById(messageDb.from)
         const finalMessage : IMessageDTO = {
-            message: messageEntity,
-            user: receiverUser
+            message: messageDb,
+            user: senderUser
         }
         
         io.to(`${messageEntity.to}`).emit("message", finalMessage)
