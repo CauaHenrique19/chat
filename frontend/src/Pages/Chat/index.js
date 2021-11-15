@@ -297,8 +297,19 @@ const Chat = () => {
                                 messagesOfConversations.length > 0 && 
                                 messagesOfConversations.map(message => (
                                     <div key={message.id} className={message.from === user.id ? "message my last" : "message last"}>
-                                        <p className="content" dangerouslySetInnerHTML={{ __html: message.content }} ></p>
-                                        {/* <p className="date">21/03/2021 às 17:10</p> */}
+                                        <img 
+                                            src={ message.from === user.id ? user.url_image : userSelected.url_image } 
+                                            alt={message.from === user.id ? user.name : userSelected.name} 
+                                        />
+                                        <p className="content">
+                                            <div className="content-message" dangerouslySetInnerHTML={{ __html: message.content }}></div>
+                                            <p className="date">17:10</p>
+                                        </p>
+                                        {
+                                            message.from === user.id ?
+                                            <button><ion-icon name="arrow-redo-outline"></ion-icon></button> :
+                                            <button><ion-icon name="arrow-undo-outline"></ion-icon></button>
+                                        }
                                     </div>
                                 ))
                             }

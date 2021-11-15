@@ -217,10 +217,35 @@
     width: fit-content;
     margin: 5px 20px 0 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+}
+.chat-container .chat-content .chat-messages .message img{
+    align-self: flex-end;
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+.chat-container .chat-content .chat-messages .message button{
+    width: 35px;
+    height: 35px;
+    background-color: var(--primary-hover-color);
+    border: none;
+    border-radius: 50px;
+    display: none;
+    margin: 0px 5px;
+    cursor: pointer;
+}
+.chat-container .chat-content .chat-messages .message button:hover{
+    background-color: var(--primary-color);
+}
+.chat-container .chat-content .chat-messages .message button ion-icon{
+    font-size: 1.3rem;
+}
+.chat-container .chat-content .chat-messages .message:hover button{
+    display: block;
 }
 .chat-container .chat-content .chat-messages .message .content{
-    max-width: 300px;
+    max-width: 350px;
     width: fit-content;
     height: fit-content;
     word-break: break-all;
@@ -230,19 +255,33 @@
     background-color: var(--primary-color);
     border-radius: 25px;
 }
+.chat-container .chat-content .chat-messages .message .content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.chat-container .chat-content .chat-messages .message .content .content-message{
+    margin-bottom: 5px;
+}
 .chat-container .chat-content .chat-messages .message .content span{
     margin: 0 3px;
 }
 .chat-container .chat-content .chat-messages .message .date{
     font-size: .8rem;
-    color: #5d5f66;
+    color: rgba(255, 255, 255, 0.596);
 }
 .chat-container .chat-content .chat-messages .message.my{
     align-self: flex-end;
+    display: flex;
+    flex-direction: row-reverse;
 }
 .chat-container .chat-content .chat-messages .message.my .content{
     background-color: var(--secondary-color);
     align-self: flex-end;
+    align-items: flex-end;
+}
+.chat-container .chat-content .chat-messages .message.my img{
+    margin-left: 5px;
 }
 .chat-container .chat-content .chat-messages .message.my .date{
     align-self: flex-end;
