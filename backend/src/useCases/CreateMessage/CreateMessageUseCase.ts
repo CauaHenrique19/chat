@@ -1,13 +1,17 @@
 import { IMessageRepository } from "../../Repositories/MessageRepository/IMessageRepository";
-import { ICreateMessageDTO } from "./ICreateMessageDTO";
+import { IUserRepository } from "../../Repositories/UserRepository/IUserRepository";
+import { ICreateMessageDTO, IMessageDTO } from "./ICreateMessageDTO";
 import { Message } from "../../Entities/Message";
 import { MessageEnum } from "../../Enums/MessageEnum";
 import { io } from "../../server";
 
 export class CreateMessageUseCase{
-    constructor(private messageRepository : IMessageRepository){}
+    constructor(
+        private messageRepository : IMessageRepository,
+        private userRepository: IUserRepository
+    ){}
 
-    async execute(message: ICreateMessageDTO) : Promise<Message>{
+    async execute(message: ICreateMessageDTO) : Promise<IMessageDTO>{
         const messageEntity = new Message({ 
             from: message.from,
             to: message.to,
@@ -22,9 +26,15 @@ export class CreateMessageUseCase{
         if(messageDb.answer_message_id){
             messageDb.answered_message = await this.messageRepository.getMessage(messageDb.answer_message_id)
         }
-        
-        io.to(`${messageEntity.to}`).emit("message", messageEntity)
 
-        return messageDb
+        const receiverUser = await this.userRepository.findById(messageDb.from)
+        const finalMessage : IMessageDTO = {
+            message: messageEntity,
+            user: receiverUser
+        }
+        
+        io.to(`${messageEntity.to}`).emit("message", finalMessage)
+
+        return finalMessage
     }
 }
