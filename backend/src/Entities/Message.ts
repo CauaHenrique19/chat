@@ -7,6 +7,7 @@ export class Message{
     public to: string
     public content: string
     public created_at: Date
+    public created_at_string?: string
     public status: MessageEnum
 
     constructor(props: Omit<Message, 'id'>, id?: string){
