@@ -23,12 +23,15 @@ const Chat = () => {
     const chatRef= useRef()
 
     const { friends, setFriends, user, darkTheme, setDarkTheme } = useContext(Context)
+    const [filteredFriends, setFilteredFriends] = useState([])
+
     const [receivedMessage, setReceivedMessage] = useState({})
-
     const [solicitations, setSolicitations] = useState([])
-    const [lastMessages, setLastMessages] = useState([])
-    const [messagesOfConversations, setMessagesOfConversations] = useState([])
 
+    const [filteredLastMessages, setFilteredLastMessages] = useState([])
+    const [lastMessages, setLastMessages] = useState([])
+
+    const [messagesOfConversations, setMessagesOfConversations] = useState([])
     const [messageInput, setMessageInput] = useState('')
     const [message, setMessage] = useState('')
 
@@ -57,11 +60,17 @@ const Chat = () => {
         })
 
         api.get(`/friendship/friends/${user.id}`)
-            .then(res => setFriends(res.data))
+            .then(res => {
+                setFilteredFriends(res.data)
+                setFriends(res.data)
+            })
             .catch(error => console.log(error))
 
         api.get(`/conversations/${user.id}`)
-            .then(res => setLastMessages(res.data))
+            .then(res => {
+                setFilteredLastMessages(res.data)
+                setLastMessages(res.data)
+            })
             .catch(error => console.log(error))
 
         api.get(`/friendship/solicitations/${user.id}`)
@@ -160,6 +169,11 @@ const Chat = () => {
             .catch(error => console.log(error.message))
     }
 
+    function handleSearch(searchFunction, arrayToManipulate, setValue){
+        const searched = arrayToManipulate.filter(searchFunction)
+        setValue(searched)
+    }
+
     function handleTheme() {
         setDarkTheme(!darkTheme)
     }
@@ -193,7 +207,17 @@ const Chat = () => {
             <div className="last-messages-container">
                 <div className="header-last-messages-container">
                     <div className="input-container">
-                        <input type="text" placeholder="Procure suas conversas" />
+                        <input 
+                            type="text" 
+                            placeholder="Procure suas conversas" 
+                            onChange={
+                                (e) => handleSearch(
+                                    conversation => conversation.user.name.includes(e.target.value) || conversation.user.email.includes(e.target.value), 
+                                    lastMessages,
+                                    setFilteredLastMessages
+                                )
+                            } 
+                        />
                         <ion-icon name="search-outline"></ion-icon>
                     </div>
                 </div>
@@ -202,9 +226,9 @@ const Chat = () => {
                 </div>
                 <div className="last-messages-content">
                     {
-                        lastMessages &&
-                        lastMessages.length > 0 ?
-                        lastMessages.map(lastMessage => (
+                        filteredLastMessages &&
+                        filteredLastMessages.length > 0 ?
+                        filteredLastMessages.map(lastMessage => (
                             <div 
                                 key={lastMessage.message.id} 
                                 className="last-conversation" 
@@ -338,7 +362,17 @@ const Chat = () => {
                     <>
                         <div className="header-my-friends">
                             <div className="input-container">
-                                <input type="text" placeholder="Procure seus amigos" />
+                                <input 
+                                    type="text" 
+                                    placeholder="Procure seus amigos"
+                                    onChange={
+                                        (e) => handleSearch(
+                                            friend => friend.name.includes(e.target.value) || friend.email.includes(e.target.value), 
+                                            friends,
+                                            setFilteredFriends
+                                        )
+                                    }
+                                />
                                 <ion-icon name="search-outline"></ion-icon>
                             </div>
                         </div>
@@ -347,9 +381,9 @@ const Chat = () => {
                         </div>
                         <div className="friends-content">
                             {
-                                friends &&
-                                friends.length > 0 ?
-                                friends.map(friend => (
+                                filteredFriends &&
+                                filteredFriends.length > 0 ?
+                                filteredFriends.map(friend => (
                                     <div key={friend.id} className="friend" onClick={() => setUseSelected(friend)}>
                                         <img key={friend.id} src={friend.url_image} alt="user" />
                                         <div className="info-friend">
