@@ -125,7 +125,7 @@ const Chat = () => {
     function handleLogout() {
         localStorage.removeItem('chat_user')
         localStorage.removeItem('chat_token')
-        history.push('/login')
+        history.push('/')
     }
 
     function handleMessage() {

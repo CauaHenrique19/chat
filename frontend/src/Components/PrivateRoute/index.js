@@ -5,7 +5,7 @@ import { Context } from '../../context/context'
 
 const PrivateRoute = (props) => {
     const { token, user } = useContext(Context)
-    return token && user ? <Route {...props} /> : <Redirect to="/login" />
+    return token && user ? <Route {...props} /> : <Redirect to="/" />
 }
 
 export default PrivateRoute
