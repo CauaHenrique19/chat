@@ -18,9 +18,10 @@ export class CreateMessageUseCase{
         })
 
         const messageDb = await this.messageRepository.save(messageEntity)
-        const answerMessage = await this.messageRepository.getMessage(messageDb.id)
 
-        messageDb.answered_message = answerMessage
+        if(messageDb.answer_message_id){
+            messageDb.answered_message = await this.messageRepository.getMessage(messageDb.answer_message_id)
+        }
         
         io.to(`${messageEntity.to}`).emit("message", messageEntity)
 
