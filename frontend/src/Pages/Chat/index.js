@@ -199,7 +199,7 @@ const Chat = () => {
                     </div>
                     <div className="bottom">
                         <li onClick={handleLogout}>
-                            <ion-icon name="log-out-outline"></ion-icon>
+                            <i class="bi bi-box-arrow-left"></i>
                         </li>
                     </div>
                 </ul>
@@ -276,10 +276,10 @@ const Chat = () => {
                             </div>
                             <div className="buttons-container">
                                 <button>
-                                    <ion-icon name="pin-outline"></ion-icon>
+                                    <i class="bi bi-pin-angle"></i>
                                 </button>
                                 <button>
-                                    <ion-icon name="person-remove-outline"></ion-icon>
+                                    <i class="bi bi-person-x"></i>
                                 </button>
                                 <button 
                                     onClick={() => {
@@ -354,7 +354,7 @@ const Chat = () => {
                                 <ion-icon name="happy-outline"></ion-icon>
                             </button>
                             <button onClick={handleMessage}>
-                                <ion-icon name="send-outline"></ion-icon>
+                                <i class="bi bi-send"></i>
                             </button>
                         </div>
                     </div> 

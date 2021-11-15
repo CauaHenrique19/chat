@@ -215,7 +215,7 @@
 }
 .chat-container .chat-content .chat-messages .message{
     width: fit-content;
-    margin: 5px 20px 0 20px;
+    margin: 5px 5px 0 5px;
     display: flex;
     align-items: center;
 }
@@ -249,8 +249,6 @@
     width: fit-content;
     height: fit-content;
     word-break: break-all;
-    display: flex;
-    align-items: center;
     padding: 15px;
     background-color: var(--primary-color);
     border-radius: 25px;
@@ -262,6 +260,8 @@
 }
 .chat-container .chat-content .chat-messages .message .content .content-message{
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
 }
 .chat-container .chat-content .chat-messages .message .content span{
     margin: 0 3px;
