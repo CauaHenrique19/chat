@@ -85,17 +85,32 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        if(receivedMessage.id){
-            const conversation = lastMessages.find(lastMessage => receivedMessage.from === lastMessage.user.id)
-            const indexOfConversation = lastMessages.indexOf(conversation)
-            conversation.pendingMessages = parseInt(conversation.pendingMessages) + 1
-            conversation.message = receivedMessage
-            lastMessages[indexOfConversation] = conversation
-            setLastMessages([...lastMessages])
+        if(receivedMessage.message && receivedMessage.message.id){
+            const conversation = lastMessages.find(lastMessage => receivedMessage.message.from === lastMessage.user.id)
+
+            if(conversation){
+                const indexOfConversation = lastMessages.indexOf(conversation)
+                conversation.pendingMessages = parseInt(conversation.pendingMessages) + 1
+                conversation.message = receivedMessage.message
+                lastMessages[indexOfConversation] = conversation
+                setLastMessages([...lastMessages])
+            }
+            else{
+                const newConversation = {
+                    from: receivedMessage.from,
+                    to: user.id,
+                    message: receivedMessage.message,
+                    user: receivedMessage.user,
+                    pendingMessages: 1
+                }
+
+                lastMessages.push(newConversation)
+                setLastMessages([...lastMessages])
+            }
             
-            if(conversationSelected.user && conversationSelected.user.id === receivedMessage.from){
-                if(!messagesOfConversations.includes(receivedMessage)){
-                    setMessagesOfConversations([...messagesOfConversations, receivedMessage])
+            if(conversationSelected.user && conversationSelected.user.id === receivedMessage.message.from){
+                if(!messagesOfConversations.includes(receivedMessage.message)){
+                    setMessagesOfConversations([...messagesOfConversations, receivedMessage.message])
                 }
             }
         }
@@ -149,8 +164,8 @@ const Chat = () => {
         if(messageToSend.content){
             api.post('/message', messageToSend)
                 .then(res => {
-                    setMessagesOfConversations([...messagesOfConversations, res.data])
-                    conversationSelected.message = res.data
+                    setMessagesOfConversations([...messagesOfConversations, res.data.message])
+                    conversationSelected.message = res.data.message
                     setConversationSelected(conversationSelected)
                     setMessage('')
                     setMessageInput('')
@@ -190,7 +205,11 @@ const Chat = () => {
                         <li className="selected">
                             <ion-icon name="home-outline"></ion-icon>
                         </li>
-                        <li onClick={() => setViewSearchPage(!viewSearchPage)} >
+                        <li onClick={() => {
+                            setViewSearchPage(!viewSearchPage)
+                            setConversationSelected({})
+                            setUseSelected({})
+                        }} >
                             <ion-icon name="search-outline"></ion-icon>
                         </li>
                         <li>
@@ -236,6 +255,7 @@ const Chat = () => {
                                 key={lastMessage.message.id} 
                                 className="last-conversation" 
                                 onClick={() => { 
+                                    setViewSearchPage(false)
                                     setUseSelected(lastMessage.user)
                                     setConversationSelected(lastMessage)
                                 }}
@@ -314,7 +334,7 @@ const Chat = () => {
                                             <div className="message-content-wrap">
                                                 <div className="content">
                                                     <p className="content-message" dangerouslySetInnerHTML={{ __html: message.content }} />
-                                                    <p className="date">17:10</p>
+                                                    <p className="date">{message.created_at_string.substr(message.created_at_string.lastIndexOf(' '), 6)}</p>
                                                 </div>
                                                 <button onClick={() => setAnswerMessage(message)}>
                                                     {
