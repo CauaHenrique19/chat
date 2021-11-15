@@ -8,4 +8,5 @@ export interface IMessageRepository{
     getLastMessageBetweenUsers(from: string, to: string) : Promise<Message>
     getMessagesBetweenUsers(from: string, to: string) : Promise<Message[]>
     getPendingMessages(from: string, to: string) : Promise<Number | string>
+    getMessage(messageId: string) : Promise<Message>
 }

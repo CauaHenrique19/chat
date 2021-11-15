@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.text('content').notNullable()
         table.timestamp('created_at').notNullable()
         table.string('status').notNullable()
+        table.string('answer_message_id').references('id').inTable('messages')
     })
 }
 

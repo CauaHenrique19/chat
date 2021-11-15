@@ -55,5 +55,13 @@ export class MessageRepository implements IMessageRepository{
         
         return count
     }
-    
+
+    async getMessage(messageId: string): Promise<Message> {
+        const message = await knex('messages')
+            .select('content')
+            .where({ id: messageId })
+            .first()
+
+        return message
+    }
 }

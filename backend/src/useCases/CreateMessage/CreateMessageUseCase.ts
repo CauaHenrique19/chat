@@ -13,12 +13,17 @@ export class CreateMessageUseCase{
             to: message.to,
             content: message.content,
             created_at: new Date,
+            answer_message_id: message.answer_message_id,
             status: MessageEnum.Pending
         })
 
+        const messageDb = await this.messageRepository.save(messageEntity)
+        const answerMessage = await this.messageRepository.getMessage(messageDb.id)
+
+        messageDb.answered_message = answerMessage
+        
         io.to(`${messageEntity.to}`).emit("message", messageEntity)
 
-        const messageDb = await this.messageRepository.save(messageEntity)
         return messageDb
     }
 }
