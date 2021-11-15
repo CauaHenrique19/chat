@@ -201,7 +201,7 @@
 .chat-container .chat-content .chat-messages{
     display: flex;
     flex-direction: column;
-    height: calc(100% - 200px);
+    height: calc(100% - 240px);
     overflow-y: auto;
 }
 .chat-container .chat-content .chat-messages::-webkit-scrollbar{
@@ -244,7 +244,12 @@
 .chat-container .chat-content .chat-messages .message:hover button{
     display: block;
 }
-.chat-container .chat-content .chat-messages .message .content{
+.chat-container .chat-content .chat-messages .message .message-content{
+    display: flex;
+    flex-direction: column;
+}
+.chat-container .chat-content .chat-messages .message .content,
+.chat-container .chat-content .chat-messages .message .answer-content{
     max-width: 350px;
     width: fit-content;
     height: fit-content;
@@ -252,6 +257,10 @@
     padding: 15px;
     background-color: var(--primary-color);
     border-radius: 25px;
+}
+.chat-container .chat-content .chat-messages .message .answer-content{
+    margin: 5px 0;
+    background-color: var(--primary-hover-color);
 }
 .chat-container .chat-content .chat-messages .message .content{
     display: flex;
@@ -299,30 +308,67 @@
 }
 .chat-container .chat-content .send-message{
     height: 100px;
+    position: relative;
+}
+.chat-container .chat-content .send-message.full{
+    height: 140px;
+}
+.chat-container .chat-content .send-message .answer-container{
     width: 100%;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+
+    background-color: rgb(19, 21, 32);
+}
+.chat-container .chat-content .send-message .answer-container .answer-content{
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+.chat-container .chat-content .send-message .answer-container .answer-content ion-icon{
+    margin-right: 5px;
+}
+.chat-container .chat-content .send-message .answer-container .answer-content p{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+.chat-container .chat-content .send-message .answer-container button{
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px 20px;
 
-    border-top: 1px solid var(--border-color);
-    position: relative;
+    background-color: var(--primary-hover-color);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
 }
-.chat-container .chat-content .send-message .input-container{
+.chat-container .chat-content .send-message .answer-container button:hover{
+    background-color: var(--primary-color);
+}
+.chat-container .chat-content .send-message .input-send-message-container{
     width: 100%;
-    height: 50px;
-
+    height: 100%;
+    
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    border-radius: 50px;
-    padding-right: 20px;
+    border-top: 1px solid var(--border-color);
+    padding: 0px 20px;
 }
-.chat-container .chat-content .send-message input{
+.chat-container .chat-content .send-message .input-send-message-container input{
     width: calc(100% - 110px);
     height: 100%;
-
+    
     background-color: initial;
     border: none;
     outline: none;
@@ -330,7 +376,7 @@
     font-size: 1.5rem;
     color: var(--primary-font-color);
 }
-.chat-container .chat-content .send-message > button{
+.chat-container .chat-content .send-message .input-send-message-container > button{
     width: 50px;
     height: 50px;
 
@@ -346,23 +392,23 @@
     background-color: var(--border-color);
     transition: background-color 0.3s;
 }
-.chat-container .chat-content .send-message > button:hover{
+.chat-container .chat-content .send-message .input-send-message-container > button:hover{
     background-color: var(--primary-color);
 }
-.chat-container .chat-content .send-message > button:last-child{
+.chat-container .chat-content .send-message .input-send-message-container > button:last-child{
     margin-right: 0;
 }
-.chat-container .chat-content .send-message .emoji-mart{
+.chat-container .chat-content .send-message .input-send-message-container .emoji-mart{
     position: absolute;
     bottom: 110%;
     right: 20px;
 }
-.chat-container .chat-content .send-message .emoji-mart .emoji-mart-scroll::-webkit-scrollbar{
+.chat-container .chat-content .send-message .input-send-message-container .emoji-mart .emoji-mart-scroll::-webkit-scrollbar{
     width: 7px;
     background-color: var(--primary-hover-color);
     border-radius: 50px;
 }
-.chat-container .chat-content .send-message .emoji-mart .emoji-mart-scroll::-webkit-scrollbar-thumb{
+.chat-container .chat-content .send-message .input-send-message-container .emoji-mart .emoji-mart-scroll::-webkit-scrollbar-thumb{
     width: 7px;
     background-color: var(--primary-color);
     border-radius: 50px;

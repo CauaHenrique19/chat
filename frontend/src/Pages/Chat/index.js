@@ -32,6 +32,7 @@ const Chat = () => {
     const [lastMessages, setLastMessages] = useState([])
 
     const [messagesOfConversations, setMessagesOfConversations] = useState([])
+    const [answerMessage, setAnswerMessage] = useState({})
     const [messageInput, setMessageInput] = useState('')
     const [message, setMessage] = useState('')
 
@@ -298,64 +299,85 @@ const Chat = () => {
                                 messagesOfConversations.map(message => (
                                     <div key={message.id} className={message.from === user.id ? "message my last" : "message last"}>
                                         <img 
-                                            src={ message.from === user.id ? user.url_image : userSelected.url_image } 
+                                            src={message.from === user.id ? user.url_image : userSelected.url_image} 
                                             alt={message.from === user.id ? user.name : userSelected.name} 
                                         />
-                                        <p className="content">
-                                            <div className="content-message" dangerouslySetInnerHTML={{ __html: message.content }}></div>
-                                            <p className="date">17:10</p>
-                                        </p>
-                                        {
-                                            message.from === user.id ?
-                                            <button><ion-icon name="arrow-redo-outline"></ion-icon></button> :
-                                            <button><ion-icon name="arrow-undo-outline"></ion-icon></button>
-                                        }
+                                        <div className="message-content">
+                                            <div className="answer-content">
+                                                <p>aksdoaskdoaksdoaskdosakdoaskdosa</p>
+                                            </div>
+                                            <div className="content">
+                                                <p className="content-message" dangerouslySetInnerHTML={{ __html: message.content }}></p>
+                                                <p className="date">17:10</p>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => setAnswerMessage(message)}>
+                                            {
+                                                message.from === user.id ?
+                                                <ion-icon name="arrow-redo-outline"></ion-icon> :
+                                                <ion-icon name="arrow-undo-outline"></ion-icon>
+                                            }
+                                        </button>
                                     </div>
                                 ))
                             }
                         </main>
-                        <div className="send-message">
+                        <div className={answerMessage.id ? "send-message" : "send-message full"}>
                             {
-                                viewEmojiPicker &&
-                                <Picker 
-                                    theme="dark"
-                                    i18n={translateEmoji}
-                                    color="#964bff"
-                                    onSelect={(emoji) => {
-                                        const newMessage = message + emoji.native
-                                        const newMessageInput = messageInput + renderToString(
-                                            <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: Emoji({
-                                                        html: true,
-                                                        set: "apple",
-                                                        emoji: emoji.colons,
-                                                        size: 25
-                                                    })
-                                                }}
-                                            />
-                                        )     
-                                        setMessageInput(newMessageInput)
-                                        setMessage(newMessage)
-                                        setViewEmojiPicker(false)
-                                    }} 
-                                />
+                                answerMessage.id &&
+                                <div className="answer-container">
+                                    <div className="answer-content">
+                                        <ion-icon name="arrow-undo"></ion-icon>
+                                        <p dangerouslySetInnerHTML={{ __html: answerMessage.content }}></p>
+                                    </div>
+                                    <button onClick={() => setAnswerMessage({})}>
+                                        <ion-icon name="close-outline"></ion-icon>
+                                    </button>
+                                </div>
                             }
-                            <input 
-                                type="text" 
-                                placeholder="Envie sua mensagem" 
-                                value={message} 
-                                onChange={(e) => {
-                                    setMessage(e.target.value)
-                                    setMessageInput(e.target.value)
-                                }} 
-                            onKeyUp={(e) => e.key === 'Enter' && handleMessage() } />
-                            <button onClick={() => setViewEmojiPicker(!viewEmojiPicker)} >
-                                <ion-icon name="happy-outline"></ion-icon>
-                            </button>
-                            <button onClick={handleMessage}>
-                                <i class="bi bi-send"></i>
-                            </button>
+                            <div className="input-send-message-container">
+                                {
+                                    viewEmojiPicker &&
+                                    <Picker 
+                                        theme="dark"
+                                        i18n={translateEmoji}
+                                        color="#964bff"
+                                        onSelect={(emoji) => {
+                                            const newMessage = message + emoji.native
+                                            const newMessageInput = messageInput + renderToString(
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: Emoji({
+                                                            html: true,
+                                                            set: "apple",
+                                                            emoji: emoji.colons,
+                                                            size: 25
+                                                        })
+                                                    }}
+                                                />
+                                            )     
+                                            setMessageInput(newMessageInput)
+                                            setMessage(newMessage)
+                                            setViewEmojiPicker(false)
+                                        }} 
+                                    />
+                                }
+                                <input 
+                                    type="text" 
+                                    placeholder="Envie sua mensagem" 
+                                    value={message} 
+                                    onChange={(e) => {
+                                        setMessage(e.target.value)
+                                        setMessageInput(e.target.value)
+                                    }} 
+                                onKeyUp={(e) => e.key === 'Enter' && handleMessage() } />
+                                <button onClick={() => setViewEmojiPicker(!viewEmojiPicker)} >
+                                    <ion-icon name="happy-outline"></ion-icon>
+                                </button>
+                                <button onClick={handleMessage}>
+                                    <i class="bi bi-send"></i>
+                                </button>
+                            </div>
                         </div>
                     </div> 
             }
