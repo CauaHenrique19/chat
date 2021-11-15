@@ -142,7 +142,8 @@ const Chat = () => {
         const messageToSend = {
             from: user.id,
             to: userSelected.id,
-            content: messageInput
+            content: messageInput,
+            answer_message_id: answerMessage.id
         }
 
         if(messageToSend.content){
@@ -153,6 +154,7 @@ const Chat = () => {
                     setConversationSelected(conversationSelected)
                     setMessage('')
                     setMessageInput('')
+                    setAnswerMessage({})
                 })
                 .catch(error => console.log(error))
         }
@@ -303,21 +305,26 @@ const Chat = () => {
                                             alt={message.from === user.id ? user.name : userSelected.name} 
                                         />
                                         <div className="message-content">
-                                            <div className="answer-content">
-                                                <p>aksdoaskdoaksdoaskdosakdoaskdosa</p>
-                                            </div>
-                                            <div className="content">
-                                                <p className="content-message" dangerouslySetInnerHTML={{ __html: message.content }}></p>
-                                                <p className="date">17:10</p>
+                                            {
+                                                message.answer_message_id &&
+                                                <div className="answer-content">
+                                                    <p dangerouslySetInnerHTML={{ __html: message.answered_message.content }} />
+                                                </div>
+                                            }
+                                            <div className="message-content-wrap">
+                                                <div className="content">
+                                                    <p className="content-message" dangerouslySetInnerHTML={{ __html: message.content }} />
+                                                    <p className="date">17:10</p>
+                                                </div>
+                                                <button onClick={() => setAnswerMessage(message)}>
+                                                    {
+                                                        message.from === user.id ?
+                                                        <ion-icon name="arrow-redo-outline"></ion-icon> :
+                                                        <ion-icon name="arrow-undo-outline"></ion-icon>
+                                                    }
+                                                </button>
                                             </div>
                                         </div>
-                                        <button onClick={() => setAnswerMessage(message)}>
-                                            {
-                                                message.from === user.id ?
-                                                <ion-icon name="arrow-redo-outline"></ion-icon> :
-                                                <ion-icon name="arrow-undo-outline"></ion-icon>
-                                            }
-                                        </button>
                                     </div>
                                 ))
                             }
